@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+var hcl = require('../lib/hclParser.js');
+var fs = require('fs');
+
+if (process.argv[2]) {
+    fs.readFile(process.argv[2], function(err, text) {
+        if (err) throw err;
+        hcl.analyze(hcl.parse(hcl.scan(text.toString())));
+		// TODO: compile and write to file
+    });
+} else {
+	// TODO: implement a REPL
+	/*
+    var stdin = process.openStdin();
+    process.stdout.write(' > ');
+    stdin.on('data', function(text) {
+        try {
+            pll.analyze(pll.parse(pll.scan(text.toString())));
+        } catch(e) {
+            console.log(e);
+        }
+        process.stdout.write(' > ');
+    });
+	*/
+}
+
