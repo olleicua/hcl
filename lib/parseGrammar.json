@@ -1,6 +1,6 @@
 {
     "_program": [
-        ["_expression", "_program-tail"],
+        ["_expression", "_program-tail"]
     ],
     "_program-tail": [
         ["_program"],
