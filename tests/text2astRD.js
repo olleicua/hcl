@@ -5,7 +5,7 @@ var hcl = require('../lib/parser.js');
 
 var string2ast = function(string) {
     var tokens = hcl.scan(string);
-    var tree = hcl.parse(tokens);
+    var tree = hcl.parse(tokens, require('hot-cocoa').RD);
     return hcl.analyze(tree)[0][0];
 };
 

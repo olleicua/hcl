@@ -15,7 +15,7 @@
         ["_atom"]
     ],
     "_puncuated-list": [
-        ["\"", "_expression"],
+        ["'", "_expression"],
         ["`", "_expression"],
         ["~", "_expression"]
     ],
@@ -52,7 +52,6 @@
         ["}"]
     ],
     "_atom": [
-        ["."],
         ["word"],
         ["string"],
         ["number"],

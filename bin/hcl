@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var hcl = require('../lib/hclParser.js');
+var hcl = require('../lib/parser.js');
 var fs = require('fs');
 
 if (process.argv[2]) {
