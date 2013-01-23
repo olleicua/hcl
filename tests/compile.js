@@ -8,6 +8,10 @@ var compile_test = function(source) {
 		.slice(prefix.length);
 }
 
+var eval_test = function(source) {
+	return eval(compile_test(source));
+}
+
 var tests = [
 	[function() { return compile_test('(if 1)'); },
 	 'Error: Wrong number of arguments: 1 for 3'],
@@ -15,10 +19,22 @@ var tests = [
 	 'console.log("hello");'],
 	[compile_test('(console.log (if true "yes" "no"))'),
 	 'console.log((true ? "yes" : "no"));'],
-	[compile_test('(= 1 2 3)'),
-	 '1 === 2 && 1 === 3;'],
-	[compile_test('(cond ((= x 1) "one") (true "not one"))'),
-	 '(x === 1 ? \"one\" : true ? \"not one\" : undefined);']
+	[eval_test('(= 1 2 2)'),
+	 false],
+	[eval_test('(= false false false)'),
+	 true],
+	[eval_test('(cond ((< 6 8) "less") (true "not less"))'),
+	 'less'],
+	[eval_test('(cond ((< 16 8) "less") (true "not less"))'),
+	 'not less'],
+	[eval_test('((# (x) (+ x 1)) 2)'),
+	 3],
+	[eval_test('(>= (* 2 3 5) (/ 45 1.5) 0 (- 10 11))'),
+	 true],
+	[eval_test('(>= (* 2 3 5) (/ 45 1.5) 0 (- 10 11) 7)'),
+	 false],
+	[eval_test('(cat "Hello" " " "World" (if true "!" ""))'),
+	 'Hello World!']
 ];
 
 require('hot-cocoa').test(tests);
