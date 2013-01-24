@@ -9,7 +9,7 @@ var compile_test = function(source) {
 }
 
 var eval_test = function(source) {
-	return eval(compile_test(source));
+	return eval('(' + compile_test(source).replace(/;$/, '') + ')');
 }
 
 var tests = [
@@ -34,7 +34,17 @@ var tests = [
 	[eval_test('(>= (* 2 3 5) (/ 45 1.5) 0 (- 10 11) 7)'),
 	 false],
 	[eval_test('(cat "Hello" " " "World" (if true "!" ""))'),
-	 'Hello World!']
+	 'Hello World!'],
+	[eval_test('[1 2 3]'),
+	 [1, 2, 3]],
+	[eval_test('{a 1 b 2}'),
+	 { a: 1, b: 2 }],
+	[eval_test('{+ 1}'),
+	 { __plus__: 1 }],
+	[eval_test('(get [1 2 3] 0)'),
+	 1],
+	[eval_test('(get {a 1 b 2} "b")'),
+	 2],
 ];
 
 require('hot-cocoa').test(tests);
