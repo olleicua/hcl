@@ -27,7 +27,7 @@ var tests = [
      '[quote, [1, 2, 3]]'],
     [function() {
         return string2ast('\`(1 2 ~(- 4 1))').json(); },
-     '[quaziquote, [1, 2, [unquote, [-, 4, 1]]]]'],
+     '[quasiquote, [1, 2, [unquote, [-, 4, 1]]]]'],
     [function() {
         return string2ast('(+ 1 2)').json(); },
      '[+, 1, 2]'],
