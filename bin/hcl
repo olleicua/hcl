@@ -8,12 +8,12 @@ if (process.argv[2]) {
     fs.readFile(process.argv[2], function(err, text) {
         if (err) throw err;
         var out = compile(hcl.analyze(hcl.parse(hcl.scan(text.toString()), require('hot-cocoa').RD))[0]);
-		var outFile = process.argv[2].replace(/\.hcl$/, '.js');
-		fs.writeFile(outFile, out);
+        var outFile = process.argv[2].replace(/\.hcl$/, '.js');
+        fs.writeFile(outFile, out);
     });
 } else {
-	// TODO: implement a REPL
-	/*
+    // TODO: implement a REPL
+    /*
     var stdin = process.openStdin();
     process.stdout.write(' > ');
     stdin.on('data', function(text) {
@@ -24,6 +24,6 @@ if (process.argv[2]) {
         }
         process.stdout.write(' > ');
     });
-	*/
+    */
 }
 
