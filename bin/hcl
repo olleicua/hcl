@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
 var hcl = require('../lib/parser.js');
+var compile = require('../lib/compile.js');
 var fs = require('fs');
 
 if (process.argv[2]) {
     fs.readFile(process.argv[2], function(err, text) {
         if (err) throw err;
-        hcl.analyze(hcl.parse(hcl.scan(text.toString())));
-		// TODO: compile and write to file
+        var out = compile(hcl.analyze(hcl.parse(hcl.scan(text.toString()), require('hot-cocoa').RD))[0]);
+		var outFile = process.argv[2].replace(/\.hcl$/, '.js');
+		fs.writeFile(outFile, out);
     });
 } else {
 	// TODO: implement a REPL
