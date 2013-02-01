@@ -45,6 +45,8 @@ var tests = [
      1],
     [eval_test('(get {a 1 b 2} "b")'),
      2],
+    [eval_test('((# (x...) x.length) 1 2 3 4)'),
+     4],
 ];
 
 require('hot-cocoa').test(tests);
