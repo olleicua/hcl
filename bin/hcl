@@ -7,7 +7,8 @@ var fs = require('fs');
 if (process.argv[2]) {
     fs.readFile(process.argv[2], function(err, text) {
         if (err) throw err;
-        var out = compile(hcl.analyze(hcl.parse(hcl.scan(text.toString()), require('hot-cocoa').RD))[0]);
+        var source = text.toString()
+        var out = compile(hcl.analyze(hcl.parse(hcl.scan(source), require('hot-cocoa').RD))[0], source);
         var outFile = process.argv[2].replace(/\.hcl$/, '.js');
         fs.writeFile(outFile, out);
     });

@@ -1,15 +1,17 @@
 var hcl = require('../lib/parser.js');
-var compile = require('../lib/compile.js');
 
-// TODO: these should be output based
+var compile = function(source) {
+    return require('../lib/compile.js')(hcl.analyze(hcl.parse(hcl.scan(source)))[0]);
+};
+
 var compile_test = function(source) {
-    var prefix = '// compiled from Hot Cocoa Lisp\n\n// annotations coming..\n\n';
-    return compile(hcl.analyze(hcl.parse(hcl.scan(source)))[0])
-        .slice(prefix.length);
+    return compile(source).replace(/^\n/gm, '').replace(/\/\/.*\n/gm, '');
 }
 
 var eval_test = function(source) {
-    return eval('(' + compile_test(source).replace(/;$/, '') + ')');
+    return function() {
+        return eval('(' + compile(source).replace(/;$/, '') + ')');
+    };
 }
 
 var tests = [
