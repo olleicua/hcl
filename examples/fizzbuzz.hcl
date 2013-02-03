@@ -2,14 +2,14 @@
 
 (def divisible (# (n m) (= 0 (mod n m))))
 
-(def evaluated_if
+(def evaluated-if
      (# (condition yes no)
         (if (condition yes no) yes no)))
 
 (def fizzbuzz
      (# (n)
         (console.log
-         (evaluated_if (# (number words) (empty? words)) n
+         (evaluated-if (# (number words) (empty? words)) n
                        (_.reduce (_.map [[3 "Fizz"] [5 "Buzz"]]
                                         (# (pair)
                                            (if (divisible n (get pair 0))
