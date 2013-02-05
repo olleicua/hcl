@@ -14,6 +14,8 @@ var eval_test = function(source) {
     };
 }
 
+//console.log(hcl.analyze(hcl.parse(hcl.scan('(replace "1 2 3 (4) 5 (6)" /\((\d)\)/ "[$1]")')))[0])
+
 var tests = [
     [function() { return compile_test('(if 1)'); },
      'Error: Wrong number of arguments for `if`: 1 for 3'],
@@ -49,6 +51,14 @@ var tests = [
      2],
     [eval_test('((# (x...) x.length) 1 2 3 4)'),
      4],
+    [eval_test('(replace "foo" (re "o") "0")'),
+     "f0o"],
+    [eval_test('(replace "foo" (re "O" "i") "0")'),
+     "f0o"],
+    [eval_test('(replace "foo" (re "o" "g") "0")'),
+     "f00"],
+    [eval_test('(replace "1 2 3 {4} 5 {6}" (re "{(\\d)}" "g") "[$1]")'),
+     '1 2 3 [4] 5 [6]'],
 ];
 
 require('hot-cocoa').test(tests);
