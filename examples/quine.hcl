@@ -1,0 +1,1 @@
+(def x "(def x QQXQQ) (console.log (replace (replace x (re QQQ{2}QQ QQgQQ) (String.fromCharCode 34)) (re QQXQQ) x))") (console.log (replace (replace x (re "Q{2}" "g") (String.fromCharCode 34)) (re "X") x))
