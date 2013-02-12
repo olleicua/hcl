@@ -146,81 +146,22 @@
     : y.a // 1
 
 *** if
-    Takes three arguments
+    Takes three arguments and returns the second if the first is true
+    and the third if the first is false.
+    
+    : ;; HCL
+    : (if (= x 1) "one" "not one")
+    : // JavaScript
+    : ((x === 1) ? "one" : "not one")
 
-** Javascript objects
-   To fascilitate interoperability, HCL objects work almost exactly
-   the same as Javascript objects with a few exceptions.
-   
-*** literal notation
-    Object literals can declared in one of two ways:
-    
-    : {a 1 b 2}
-    
-    OR
-    
-    : (object a 1 b 2)
-    
-    The first is translated by the parser into the second.  In either
-    case an even number of arguments is expected and they are interpreted
-    pairwise as key-value pairs.
-    
-*** access notation
-**** Getting
-     The simplest way to access a property of an object is using the
-     familiar dotted notation from Javascript:
-     
-     : obj.key
-     
-     Or the more lisp-like:
-     
-     : (. obj key)
-     
-     As before the first is translated to the second by the parser.
-     
-     Access in this form can also be chained (e.g.):
-     
-     : obj.key1.key2
-     : (. obj key1 key2)
-     
-     where /obj.key1/ is another object that has the key /key2/. Just
-     like the dotted notation in Javascript, this notation only works
-     when you know the names of the keys before runtime.  If the name
-     of the key is the result of a computation then you can use the
-     /get/ function:
-     
-     : (get obj "key")
-     : (get obj (expression-evaluating-to-key))
-     
-     Unlike the /./ function, /get/ evaluates all of it's
-     arguments and is equivalent to the javascript square bracket
-     notation.
-     
-**** Setting
-     When the /set/ function takes an object as it's first a key
-     as its second and a value as it's third.  All three arguments are
-     evaluated.
-     
-     : (set obj 'key value)
-     : (set obj (expression-evaluatin-to-key) value)
-     
-*** method notation
-    When a property of an object is a function and it is accessed
-    using the /./ special form, it is returned with a wrappper
-    function that calls the function context of the object.  This
-    ensures that /this/ will refer to /obj/ in the context of a the
-    call:
-    
-    : (obj.method args..)
-    
-    When a function is accessed via /get/, it is returned normally
-    without a wrapper.
-    
-    Additionally functions can be called using /call/ and /apply/
-    which specify a context to referred to by /this/:
-    
-    : (call method context args..)
-    : (apply method context arg-list)
-    
-    Wrapped functions will have their call and apply methods
-    overridden to make them work correctly with call and apply.
+*** when
+	Takes two or more arguments and executes the expressions following
+    the first argument if the first argument is true
+	
+    : ;; HCL
+    : (when (= x 1) (console.log "x is one"))
+    : // JavaScript
+    : ((x === 1) && (function() { console.log("x is one"); })())
+
+*** cond
+	
