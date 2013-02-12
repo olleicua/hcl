@@ -9,7 +9,7 @@
 ; python style for loop
 (def print-all
      (# (args...)
-        (for (i args) (console.log i (get args i)))))
+        (for (x args) (console.log x))))
 
 (print-all "d" "e" "f")
 

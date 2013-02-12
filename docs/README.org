@@ -1,0 +1,226 @@
+* HOT COCOA LISP
+  Hot Cocoa Lisp is a dialect of Lisp designed to be compiled into
+  Javascript.  It has been said that Javascript is Scheme in C's
+  clothes.  Hot Cocoa Lisp is an attempt to put it back in Schemes
+  clothes.
+** High Level Design Goals
+   - Provide a clean, intuitive interface to existing
+     Javascript libraries/frameworks
+   - Use the minimal syntax of Lisp
+   - Retain the good features of Javascript
+     (first-class functions with closures, Dynamic objects with prototypes,
+     Object literals).
+   - Fix the problems of Javascript.
+     (Global variables, type coersion, etc.)
+   - Provide some of the introspective power of Lisp (quoting, macros etc.)
+   
+** Syntax
+   The syntax of Hot Cocoa Lisp is the same as that of Scheme with
+   four exceptions:
+   - As in clojure the /unquote/ symbol is /~/ instead of /,/.
+   - The square bracket notation for Array literals from JavaScript
+     may be used but the commas are optional.
+     
+     : ;; HCL
+     : [1 2 3]
+     : // JavaScript
+     : [1, 2, 3]
+     
+     It is translated by the parser to the equivalent /(list 1 2 3)/.
+     
+   - The curly bracket notation for object literals from JavaScript
+     may be used but the commas and colons are optional.
+     
+     : ;; HCL
+     : {a 1 b 2}
+     : // JavaScript
+     : {a: 1, b: 2}
+     
+     It is translated by the parser to the equivalent /(object a 1 b 2)/.     
+     
+   - As in Javascript /./ can be used as an object access operator.
+     It works precisely as it does in JavaScript.
+     
+     : ;; HCL
+     : foo.bar
+     : // JavaScript
+     : foo.bar
+     
+     It is translated by the parser to the equivalent /(. foo bar)/.
+     
+     It is also possible to use a lisp expression for the object being
+     accessed:
+     
+     : ;; HCL
+     : (some expression returning an object).keyname
+     : // JavaScript
+     : some(expression, returning, an, object).keyname
+   
+   Hot Cocoa Lisp can syntactically supports most of the literals from
+   Javascript:
+   - /undefined/, /null/, /true/, and /false/ work exactly as they do
+     in JavaScript.
+   - Numbers work just as they do in JavaScript.
+   - Strings literals must use double quotes but otherwise function as
+     they do in JavaScript.
+   - Functions, objects, arrays, and regular expressions are defined
+     by the built-in functions named /#/, /object/, /list/, and /re/
+     respectively.
+
+** Semantics
+   The basic logic for converting a lisp expression into compiled
+   JavaScript is quite simple.  If the first element of the expression
+   is a built-in function the compiler calls on internal logic to
+   compile the expression, otherwise each element is recursively
+   compiled and then output in the form /elem1(elem2, elem3, etc)/.
+   Most of the remaining semantic logic takes the form of built-in function
+   definitions.
+
+*** nop
+    Takes no arguments and returns undefined.
+    
+    : ;; HCL
+    : (for ((var i 0) (< i 10) (++ i))
+    :     (nop))
+    : // JavaScript
+    : for (var i = 0; i < 10; i++) { }
+
+*** .
+    Takes two or more arguments and does chained object access with
+    keys that were known at program writing time.
+
+    : ;; HCL
+    : (. foo bar baz)
+    : ;; OR
+    : foo.bar.baz
+    : // JavaScript
+    : foo.bar.baz
+
+*** get
+    Takes exactly two arguments and does object/list access using a
+    key that might not be known until run time.
+
+    : ;; HCL
+    : (get list 10)
+    : // JavaScript
+    : list[10]
+    
+    *Synonyms:* /nth/
+
+*** list
+    Create and return a new JavaScript array containing the given
+    arguments.
+
+    : ;; HCL
+    : (list 1 2 3)
+    : ;; OR
+    : [1 2 3]
+    : // JavaScript
+    : [1, 2, 3]
+    
+    *Synonyms:* /array/
+
+*** object
+    Takes an even number of arguments which it interprets pairwise as
+    key/value pairs for a new JavaScript object which it creates and
+    returns.
+
+    : ;; HCL
+    : (object name "Sam" age 23)
+    : ;; OR
+    : { name "Sam" age 23 }
+    : // JavaScript
+    : {name: "Sam", age: 23}
+    
+*** inherit
+    Takes a single argument and returns a new empty object that
+    inherits prototypically fromt the argument.
+    
+    : ;; HCL
+    : (def x { a 1 })
+    : (def y (inherit x))
+    : y.a ; 1
+    : // JavaScript
+    : var x = {a: 1};
+    : var y = Object.create(x);
+    : y.a // 1
+
+*** if
+    Takes three arguments
+
+** Javascript objects
+   To fascilitate interoperability, HCL objects work almost exactly
+   the same as Javascript objects with a few exceptions.
+   
+*** literal notation
+    Object literals can declared in one of two ways:
+    
+    : {a 1 b 2}
+    
+    OR
+    
+    : (object a 1 b 2)
+    
+    The first is translated by the parser into the second.  In either
+    case an even number of arguments is expected and they are interpreted
+    pairwise as key-value pairs.
+    
+*** access notation
+**** Getting
+     The simplest way to access a property of an object is using the
+     familiar dotted notation from Javascript:
+     
+     : obj.key
+     
+     Or the more lisp-like:
+     
+     : (. obj key)
+     
+     As before the first is translated to the second by the parser.
+     
+     Access in this form can also be chained (e.g.):
+     
+     : obj.key1.key2
+     : (. obj key1 key2)
+     
+     where /obj.key1/ is another object that has the key /key2/. Just
+     like the dotted notation in Javascript, this notation only works
+     when you know the names of the keys before runtime.  If the name
+     of the key is the result of a computation then you can use the
+     /get/ function:
+     
+     : (get obj "key")
+     : (get obj (expression-evaluating-to-key))
+     
+     Unlike the /./ function, /get/ evaluates all of it's
+     arguments and is equivalent to the javascript square bracket
+     notation.
+     
+**** Setting
+     When the /set/ function takes an object as it's first a key
+     as its second and a value as it's third.  All three arguments are
+     evaluated.
+     
+     : (set obj 'key value)
+     : (set obj (expression-evaluatin-to-key) value)
+     
+*** method notation
+    When a property of an object is a function and it is accessed
+    using the /./ special form, it is returned with a wrappper
+    function that calls the function context of the object.  This
+    ensures that /this/ will refer to /obj/ in the context of a the
+    call:
+    
+    : (obj.method args..)
+    
+    When a function is accessed via /get/, it is returned normally
+    without a wrapper.
+    
+    Additionally functions can be called using /call/ and /apply/
+    which specify a context to referred to by /this/:
+    
+    : (call method context args..)
+    : (apply method context arg-list)
+    
+    Wrapped functions will have their call and apply methods
+    overridden to make them work correctly with call and apply.

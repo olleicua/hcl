@@ -1,60 +1,64 @@
 {
-    "_program": [
-        ["_expression", "_program-tail"]
-    ],
-    "_program-tail": [
-        ["_program"],
-        []
-    ],
-    "_expression": [
-        ["_puncuated-list"],
-        ["_dotted-chain"],
-        ["_list"],
-        ["_literal-list"],
-        ["_object"],
-        ["_atom"]
-    ],
-    "_puncuated-list": [
-        ["'", "_expression"],
-        ["`", "_expression"],
-        ["~", "_expression"]
-    ],
-    "_list": [
-        ["(", "_list-tail"]
-    ],
-    "_list-tail": [
-        ["_expression", "_list-tail"],
-        [")"]
-    ],
-    "_dotted-chain": [
-        ["_obj-reference", ".", "word", "_dotted-chain-tail"]
-    ],
-    "_obj-reference": [
-        ["_list"],
-        ["word"]
-    ],
-    "_dotted-chain-tail": [
-        [".", "word", "_dotted-chain-tail"],
-        []
-    ],
-    "_literal-list": [
-        ["[", "_literal-list-tail"]
-    ],
-    "_literal-list-tail": [
-        ["_expression", "_literal-list-tail"],
-        ["]"]
-    ],
-    "_object": [
-        ["{", "_object-tail"]
-    ],
-    "_object-tail": [
-        ["_atom", "_expression", "_object-tail"],
-        ["}"]
-    ],
-    "_atom": [
-        ["word"],
-        ["string"],
-        ["number"],
-        ["boolean"]
-    ]
+  "_program": [
+    ["_expression", "_program-tail"]
+  ],
+  "_program-tail": [
+    ["_program"],
+    []
+  ],
+  "_expression": [
+    ["_puncuated-list"],
+    ["_dotted-chain"],
+    ["_list"],
+    ["_dotted-list"],
+    ["_literal-list"],
+    ["_object"],
+    ["_atom"]
+  ],
+  "_puncuated-list": [
+    ["'", "_expression"],
+    ["`", "_expression"],
+    ["~", "_expression"]
+  ],
+  "_list": [
+    ["(", "_list-tail"]
+  ],
+  "_dotted-list": [
+    ["(", ".", "_list-tail"]
+  ],
+  "_list-tail": [
+    ["_expression", "_list-tail"],
+    [")"]
+  ],
+  "_dotted-chain": [
+    ["_obj-reference", ".", "word", "_dotted-chain-tail"]
+  ],
+  "_obj-reference": [
+    ["_list"],
+    ["word"]
+  ],
+  "_dotted-chain-tail": [
+    [".", "word", "_dotted-chain-tail"],
+    []
+  ],
+  "_literal-list": [
+    ["[", "_literal-list-tail"]
+  ],
+  "_literal-list-tail": [
+    ["_expression", "_literal-list-tail"],
+    ["]"]
+  ],
+  "_object": [
+    ["{", "_object-tail"]
+  ],
+  "_object-tail": [
+    ["_atom", "_expression", "_object-tail"],
+    ["}"]
+  ],
+  "_atom": [
+    ["word"],
+    ["string"],
+    ["number"],
+    ["boolean"]
+  ]
 }

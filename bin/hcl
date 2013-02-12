@@ -3,28 +3,29 @@
 var hcl = require('../lib/parser.js');
 var compile = require('../lib/compile.js');
 var fs = require('fs');
+var prompt = 'hcl> ';
 
 if (process.argv[2]) {
-    fs.readFile(process.argv[2], function(err, text) {
-        if (err) throw err;
-        var source = text.toString()
-        var out = compile(hcl.analyze(hcl.parse(hcl.scan(source), require('hot-cocoa').RD))[0], source);
-        var outFile = process.argv[2].replace(/\.hcl$/, '.js');
-        fs.writeFile(outFile, out);
-    });
+  fs.readFile(process.argv[2], function(err, text) {
+    if (err) throw err;
+    var source = text.toString()
+    var out = compile(hcl.analyze(hcl.parse(hcl.scan(source), require('hot-cocoa').RD))[0], source);
+    var outFile = process.argv[2].replace(/\.hcl$/, '.js');
+    fs.writeFile(outFile, out);
+  });
 } else {
-    // TODO: implement a REPL
-    /*
-    var stdin = process.openStdin();
-    process.stdout.write(' > ');
-    stdin.on('data', function(text) {
-        try {
-            pll.analyze(pll.parse(pll.scan(text.toString())));
-        } catch(e) {
-            console.log(e);
-        }
-        process.stdout.write(' > ');
-    });
-    */
+  // TODO: implement a REPL
+  var stdin = process.openStdin();
+  process.stdout.write(prompt);
+  stdin.on('data', function(text) {
+    try {
+      var ast = hcl.analyze(hcl.parse(hcl.scan(text.toString())));
+      var res = eval('(' + compile(ast[0]).replace(/;$/, '') + ')');
+      console.log(res);
+    } catch(e) {
+      console.log(e);
+    }
+    process.stdout.write(prompt);
+  });
 }
 

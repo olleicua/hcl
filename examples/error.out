@@ -1,0 +1,6 @@
+doing stuff..
+more stuff..
+this should run whether there was an error or not
+doing stuff..
+got error:  [Error: This wasn't supposed to happen]
+this should run whether there was an error or not
