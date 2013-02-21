@@ -155,13 +155,13 @@
     : ((x === 1) ? "one" : "not one")
 
 *** when
-	Takes two or more arguments and executes the expressions following
+    Takes two or more arguments and executes the expressions following
     the first argument if the first argument is true
-	
+    
     : ;; HCL
     : (when (= x 1) (console.log "x is one"))
     : // JavaScript
     : ((x === 1) && (function() { console.log("x is one"); })())
 
 *** cond
-	
+    
