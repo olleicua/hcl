@@ -72,6 +72,9 @@ module.exports = function(string2ast) {
             return string2ast(
                 '(def empty? (# (l) (if (= 0 (length l)) true false)))'
             ).json(true); },
-         '[def, empty?, [#, [l], [if, [=, 0, [length, l]], true, false]]]']
+         '[def, empty?, [#, [l], [if, [=, 0, [length, l]], true, false]]]'],
+        [function() {
+            return string2ast('([1 2 3].slice 2 3)').json(true); },
+         '[[., [list, 1, 2, 3], slice], 2, 3]']
     ];
 };

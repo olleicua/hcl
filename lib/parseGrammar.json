@@ -35,6 +35,8 @@
   ],
   "_obj-reference": [
     ["_list"],
+    ["_literal-list"],
+    ["_object"],
     ["word"]
   ],
   "_dotted-chain-tail": [
