@@ -1,4 +1,4 @@
-;; call dependency1 as a function on dependency 2
+;; call dependency1 as a function on dependency2
 (console.log
  ((require (compile "./dependency1.hcl"))
   (require (compile "./dependency2.hcl"))))

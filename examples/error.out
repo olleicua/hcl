@@ -1,6 +1,21 @@
+1
 doing stuff..
 more stuff..
 this should run whether there was an error or not
+2
+doing stuff..
+more stuff..
+3
+doing stuff..
+more stuff..
+this should run whether there was an error or not
+1
 doing stuff..
 got error:  [Error: This wasn't supposed to happen]
+this should run whether there was an error or not
+2
+doing stuff..
+got error:  [Error: This wasn't supposed to happen]
+3
+doing stuff..
 this should run whether there was an error or not

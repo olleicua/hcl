@@ -18,7 +18,7 @@ var eval_test = function(source) {
 
 var tests = [
   [function() { return compile_test('(if 1)'); },
-   'Error: Wrong number of arguments for `if`: 1 for 3'],
+   'Error: Wrong number of arguments for `if`: 1 for 3 at position 1,5'],
   [compile_test('(console.log "hello")'),
    'console.log("hello");'],
   [compile_test('(console.log (if true "yes" "no"))'),
@@ -84,7 +84,11 @@ var tests = [
   [eval_test('(or (list? {}) (object? 5) (function? {}) (empty? "x"))'),
    false],
   [eval_test('(or (integer? 7.5) (even? 9) (odd? 8) (contains? [1] 2))'),
-   false]
+   false],
+  [eval_test('(begin (set fib (# (n) (if (< n 1) 1 (+ (fib (-1 n)) (fib (- n 2)))))) (fib 8))'),
+   55],
+  [eval_test('(begin (set factorial (# (n) (if (= n 1) 1 (* n (factorial (-1 n)))))) (factorial 6))'),
+   720]
 ];
 
 require('hot-cocoa').test(tests);
