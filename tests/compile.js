@@ -71,6 +71,20 @@ var tests = [
    "f00"],
   [eval_test('(replace "1 2 3 {4} 5 {6}" (re "{(\\d)}" "g") "[$1]")'),
    '1 2 3 [4] 5 [6]'],
+  [eval_test('(and (= (+1 7) (*2 4)) (< (/2 10) (-1 8)))'),
+   true],
+  [eval_test('(and (nil? null) (boolean? true) (number? 7.5) (string? "foo"))'),
+   true],
+  [eval_test('(and (list? []) (object? {}) (function? (# () (nop))) (empty? ""))'),
+   true],
+  [eval_test('(and (integer? 7) (even? 8) (odd? 9) (contains? [1] 1))'),
+   true],
+  [eval_test('(or (nil? 0) (boolean? undefined) (number? "bar") (string? []))'),
+   false],
+  [eval_test('(or (list? {}) (object? 5) (function? {}) (empty? "x"))'),
+   false],
+  [eval_test('(or (integer? 7.5) (even? 9) (odd? 8) (contains? [1] 2))'),
+   false]
 ];
 
 require('hot-cocoa').test(tests);
