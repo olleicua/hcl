@@ -3,23 +3,22 @@
 var hcl = require('../lib/parser.js');
 var compile = require('../lib/compile.js');
 var file2js = require('../lib/file2js.js');
-var prompt = 'hcl> ';
+var repl = require('repl');
 
 if (process.argv[2]) {
   file2js(process.argv[2]);
 } else {
-  // TODO: implement a REPL
-  var stdin = process.openStdin();
-  process.stdout.write(prompt);
-  stdin.on('data', function(text) {
-    try {
-      var ast = hcl.analyze(hcl.parse(hcl.scan(text.toString())));
-      var res = eval('(' + compile(ast[0]).replace(/;$/, '') + ')');
-      console.log(res);
-    } catch(e) {
-      console.log(e);
-    }
-    process.stdout.write(prompt);
+  repl.start({
+	prompt: "hcl> ",
+	eval: function(cmd, context, filename, callback) {
+      try {
+		var ast = hcl.analyze(hcl.parse(hcl.scan(cmd.toString())));
+		var res = eval(compile(ast[0][0]).replace(/;$/, ''));
+		callback(null, res);
+      } catch(e) {
+		callback(null, e);
+      }
+	}
   });
 }
 
