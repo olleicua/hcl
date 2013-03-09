@@ -18,7 +18,17 @@ if (process.argv[2]) {
       } catch(e) {
 		callback(null, e);
       }
+	},
+	writer: function(value) {
+	  return require('util')
+		.inspect(value,
+				 false, // show hidden
+				 null, // depth
+				 true) // colors
+		.replace(/[:,]/g, '')
+		.replace(/{}/g, '{ }')
+		.replace(/\[\]/g, '[ ]')
+		.replace(/'/g, '"');
 	}
   });
 }
-
