@@ -13,7 +13,7 @@
 
 (def bar
 	 (# (x)
-		;; when and let are implemented using functions but don't create a new 
+		;; when and let are implemented using functions but don't create a new
 		;; scopes for the purpose of var/def
 		(let () (var y 2))
 		(when (= x "yes")
@@ -26,3 +26,11 @@
 				 (var x a) (var y b) (var z c)
 				 (+ x y z))
 			  9 8 7))
+
+((# ()
+	(var x 10)
+	((# ()
+		(var y 20)
+		((# ()
+			(var z 30)
+			(console.log x y z)))))))
