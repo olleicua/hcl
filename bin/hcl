@@ -1,12 +1,43 @@
 #!/usr/bin/env node
 
+var args = require('optimist')
+  .boolean(['h', 'n', 'b', 'v'])
+  .alias({
+	h:'help',
+	n:'run-with-node',
+	b:'browser',
+	v:'version'
+  })
+  .argv;
+
 var hcl = require('../lib/parser.js');
 var compile = require('../lib/compile.js');
 var file2js = require('../lib/file2js.js');
+var exec = require('child_process').exec;
 var repl = require('repl');
+var format = require('hot-cocoa').format;
 
-if (process.argv[2]) {
-  file2js(process.argv[2]);
+if (args.help) {
+  console.log('help message here..');
+  process.exit(0);
+}
+
+if (args.version) {
+  console.log('Hot Cocoa Lisp version 0.0.1');
+  process.exit(0);
+}
+
+if (args._[0]) {
+  // TODO: add browser mode
+  file2js(args._[0]);
+  if (args.n) {
+	exec(
+	  format('node ~~', [args._[0].replace(/\.hcl$/, '.js')]),
+	  function(error, stdout, stderr) {
+		console.log(stdout, stderr);
+	  }
+	);
+  }
 } else {
   repl.start({
 	prompt: "hcl> ",
