@@ -7,7 +7,7 @@
     []
   ],
   "_expression": [
-    ["_puncuated-list"],
+    ["_punctuated-list"],
     ["_dotted-chain"],
     ["_list"],
     ["_dotted-list"],
@@ -15,7 +15,7 @@
     ["_object"],
     ["_atom"]
   ],
-  "_puncuated-list": [
+  "_punctuated-list": [
     ["'", "_expression"],
     ["`", "_expression"],
     ["~", "_expression"]
