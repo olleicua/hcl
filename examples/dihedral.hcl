@@ -13,7 +13,7 @@
 (def size (let (n (integer (nth process.argv 2)))
             (cond
              ((or (not (integer? n)) (< n 1)) 6)
-             ((odd? n) (-1 n))
+             ((odd? n) (--1 n))
              (true n))))
 
 (process.stdout.write "   ")

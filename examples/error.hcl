@@ -7,8 +7,8 @@
 
 (def trying-things
      (# (input)
-		
-		(console.log 1)
+        
+        (console.log 1)
         (attempt
          (try
           (questionable-code input))
@@ -16,15 +16,15 @@
            (console.log "got error: " e))
          (finally
           (console.log "this should run whether there was an error or not")))
-		
-		(console.log 2)
+        
+        (console.log 2)
         (attempt
          (try
           (questionable-code input))
          (catch e
            (console.log "got error: " e)))
-		
-		(console.log 3)
+        
+        (console.log 3)
         (attempt
          (try
           (questionable-code input))

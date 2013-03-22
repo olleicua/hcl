@@ -1,7 +1,10 @@
+var _ = require('underscore');
 var hcl = require('../lib/parser.js');
 
 var compile = function(source) {
-  return require('../lib/compile.js')(hcl.analyze(hcl.parse(hcl.scan(source)))[0]);
+  return require('../lib/compile.js')(hcl.analyze(hcl.parse(hcl.scan(source)))[0],
+                                      undefined, undefined,
+                                      { add_to_outer_scope: _.identity });
 };
 
 var compile_test = function(source) {
@@ -48,7 +51,7 @@ var tests = [
   [eval_test('{a 1 b 2}'),
    { a: 1, b: 2 }],
   [eval_test('{+ 1}'),
-   { __plus__: 1 }],
+   { _plus_: 1 }],
   [eval_test('(odd? 21)'),
    true],
   [eval_test('(empty? [])'),
@@ -73,7 +76,7 @@ var tests = [
    "f00"],
   [eval_test('(replace "1 2 3 {4} 5 {6}" (re "{(\\d)}" "g") "[$1]")'),
    '1 2 3 [4] 5 [6]'],
-  [eval_test('(and (= (+1 7) (*2 4)) (< (/2 10) (-1 8)))'),
+  [eval_test('(and (= (+1 7) (*2 4)) (< (/2 10) (--1 8)))'),
    true],
   [eval_test('(and (nil? null) (boolean? true) (number? 7.5) (string? "foo"))'),
    true],
@@ -87,11 +90,11 @@ var tests = [
    false],
   [eval_test('(or (integer? 7.5) (even? 9) (odd? 8) (contains? [1] 2))'),
    false],
-  [eval_test('(begin (set fib (# (n) (if (< n 1) 1 (+ (fib (-1 n)) (fib (- n 2)))))) (fib 8))'),
+  [eval_test('(begin (set fib (# (n) (if (< n 1) 1 (+ (fib (--1 n)) (fib (- n 2)))))) (fib 8))'),
    55],
-  [eval_test('(begin (set factorial (# (n) (if (= n 1) 1 (* n (factorial (-1 n)))))) (factorial 6))'),
+  [eval_test('(begin (set factorial (# (n) (if (= n 1) 1 (* n (factorial (--1 n)))))) (factorial 6))'),
    720],
-  [eval_test('(begin (set choose (# (n m) (cond ((or (< m 0) (> m n)) 0) ((= 0 n) 1) (true (+ (choose (-1 n) (-1 m)) (choose (-1 n) m)))))) (choose 5 2))'),
+  [eval_test('(begin (set choose (# (n m) (cond ((or (< m 0) (> m n)) 0) ((= 0 n) 1) (true (+ (choose (--1 n) (--1 m)) (choose (--1 n) m)))))) (choose 5 2))'),
    10]
 ];
 

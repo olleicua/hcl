@@ -21,5 +21,5 @@
 
 ;; nested loops
 (for (x [ 2 4 6 ] )
-	 (for (y [ 3 6 9 ] )
-		  (console.log (* x y))))
+     (for (y [ 3 6 9 ] )
+          (console.log (* x y))))
