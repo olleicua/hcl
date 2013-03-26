@@ -30,15 +30,16 @@ if (args.version) {
 
 if (args._[0]) {
   // TODO: add browser mode
-  file2js(args._[0]);
-  if (args.n) {
-    exec(
-      format('node ~~', [args._[0].replace(/\.hcl$/, '.js')]),
-      function(error, stdout, stderr) {
-        console.log(stdout, stderr);
-      }
-    );
-  }
+  file2js(args._[0], function() {
+    if (args.n) {
+      exec(
+        format('node ~~', [args._[0].replace(/\.hcl$/, '.js')]),
+        function(error, stdout, stderr) {
+          console.log(stdout, stderr);
+        }
+      );
+    }
+  });
 } else {
   repl.start({
     prompt: "hcl> ",

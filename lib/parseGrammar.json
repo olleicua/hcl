@@ -31,16 +31,16 @@
     [")"]
   ],
   "_dotted-chain": [
-    ["_obj-reference", ".", "word", "_dotted-chain-tail"]
+    ["_obj-reference", ".", "identifier", "_dotted-chain-tail"]
   ],
   "_obj-reference": [
     ["_list"],
     ["_literal-list"],
     ["_object"],
-    ["word"]
+    ["identifier"]
   ],
   "_dotted-chain-tail": [
-    [".", "word", "_dotted-chain-tail"],
+    [".", "identifier", "_dotted-chain-tail"],
     []
   ],
   "_literal-list": [
@@ -58,7 +58,7 @@
     ["}"]
   ],
   "_atom": [
-    ["word"],
+    ["identifier"],
     ["string"],
     ["number"],
     ["boolean"]
