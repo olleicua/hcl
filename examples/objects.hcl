@@ -1,5 +1,3 @@
-(def format (require "hot-cocoa").format)
-
 ;; basic object
 
 (def my_object

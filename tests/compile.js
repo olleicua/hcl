@@ -3,17 +3,18 @@ var hcl = require('../lib/parser.js');
 
 var compile = function(source) {
   return require('../lib/compile.js')(hcl.analyze(hcl.parse(hcl.scan(source)))[0],
-                                      undefined, undefined,
-                                      { add_to_outer_scope: _.identity });
+                                      undefined, undefined, {
+                                        add_to_outer_scope: _.identity,
+                                        omit_annotations: true });
 };
 
 var compile_test = function(source) {
-  return compile(source).replace(/^\n/gm, '').replace(/\/\/.*\n/gm, '');
+  return compile(source).replace(/\n/gm, '');
 }
 
 var eval_test = function(source) {
   return function() {
-    return eval('(' + compile(source).replace(/;$/, '') + ')');
+    return eval('(' + compile(source).trim().replace(/;$/, '') + ')');
   };
 }
 
@@ -21,7 +22,7 @@ var eval_test = function(source) {
 
 var tests = [
   [function() { return compile_test('(if 1)'); },
-   'Error: Wrong number of arguments for `if`: 1 for 3 at position 1,5'],
+   'Error: Wrong number of arguments for `if`: 1 for 3 at position 1:0'],
   [compile_test('(console.log "hello")'),
    'console.log("hello");'],
   [compile_test('(console.log (if true "yes" "no"))'),
@@ -78,6 +79,10 @@ var tests = [
    '1 2 3 [4] 5 [6]'],
   [eval_test('(and (= (+1 7) (*2 4)) (< (/2 10) (--1 8)))'),
    true],
+  [eval_test('(cat (type []) (type {}) (type (# () (nop))) (type "") (type 7))'),
+   'arrayobjectfunctionstringnumber'],
+  [eval_test('(cat (type (re "foo")) (type null) (type undefined) (type NaN))'),
+   'regexnullundefinednan'],
   [eval_test('(and (nil? null) (boolean? true) (number? 7.5) (string? "foo"))'),
    true],
   [eval_test('(and (list? []) (object? {}) (function? (# () (nop))) (empty? ""))'),

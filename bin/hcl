@@ -1,16 +1,6 @@
 #!/usr/bin/env node
 
-var args = require('optimist')
-  .boolean(['h', 'n', 'b', 'v', 'd'])
-  .alias({
-    d: 'debug',
-    h: 'help',
-    n: 'run-with-node',
-    b: 'browser',
-    v: 'version'
-  })
-  .argv;
-
+var args = require('../lib/args.js');
 var hcl = require('../lib/parser.js');
 var compile = require('../lib/compile.js');
 var file2js = require('../lib/file2js.js');
@@ -42,7 +32,7 @@ if (args._[0]) {
   });
 } else {
   repl.start({
-    prompt: "hcl> ",
+    prompt: 'hcl> ',
     eval: function(cmd, context, filename, callback) {
       try {
         var ast = hcl.analyze(hcl.parse(hcl.scan(cmd.toString())));
