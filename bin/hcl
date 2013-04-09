@@ -1,15 +1,23 @@
 #!/usr/bin/env node
 
+var _ = require('underscore');
 var args = require('../lib/args.js');
 var hcl = require('../lib/parser.js');
 var compile = require('../lib/compile.js');
 var file2js = require('../lib/file2js.js');
 var exec = require('child_process').exec;
+var path = require('path');
+var fs = require('fs');
 var repl = require('repl');
 var format = require('hot-cocoa').format;
 
 if (args.help) {
-  console.log('help message here..');
+  process.stdout.write(
+    fs.readFileSync(
+      path.dirname(process.mainModule.filename) +
+        '/../etc/help_message'
+    ).toString()
+  );
   process.exit(0);
 }
 
@@ -19,7 +27,6 @@ if (args.version) {
 }
 
 if (args._[0]) {
-  // TODO: add browser mode
   file2js(args._[0], function() {
     if (args.n) {
       exec(
@@ -31,12 +38,21 @@ if (args._[0]) {
     }
   });
 } else {
+  if (args.u) {
+    var underscore_keys = Object.keys(_);
+    for (var i = 0; i < underscore_keys.length; i++) {
+      if (global[underscore_keys[i]] === undefined) {
+        global[underscore_keys[i]] = _[underscore_keys[i]];
+      }
+    }
+  }
   repl.start({
     prompt: 'hcl> ',
     eval: function(cmd, context, filename, callback) {
       try {
         var ast = hcl.analyze(hcl.parse(hcl.scan(cmd.toString())));
         var js = compile(ast[0][0], undefined, undefined, {
+          repl_mode: true,
           add_to_outer_scope: function(name, value) {
             if (args.debug) {
               console.log('js (', name, '):', value);

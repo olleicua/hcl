@@ -1,0 +1,12 @@
+Usage: hcl [-hnbvdu] [file]
+
+If a file is specified it will be compiled to a .js file
+ otherwise the REPL will be openned.
+
+Options:
+-h, --help            Display this help message
+-n, --run-with-node   Immediately execute the program using Node.js
+-b, --browser         Optimize the code for use in a web browser
+-v, --version         Display the version number
+-d, --debug           Run the REPL in debug mode
+-u, --underscore      Include underscore.js

@@ -15,7 +15,7 @@ var tests = [];
 for (var i = 0; i < files.length; i++) {
   (function (j) {
     var name = /^(.*)\.out/.exec(files[j])[1];
-    exec(format('./bin/hcl examples/~0~.hcl && node examples/~0~.js', [name]),
+    exec(format('./bin/hcl -u examples/~0~.hcl && node examples/~0~.js', [name]),
          function(error, stdout, stderr) {
            tests.push([
              stdout,
