@@ -139,5 +139,6 @@ Function reference
 
 ...
 
-<hr id="references" />
+<span id="references"></span>
+* * *
 1: [http://www.crockford.com/javascript/javascript.html](http://www.crockford.com/javascript/javascript.html)
