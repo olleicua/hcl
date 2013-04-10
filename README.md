@@ -23,11 +23,15 @@ from JavaScript (e.g. `foo.bar`) is allowed.  So for example:
 
 **Hot Cocoa Lisp**
 
-    (console.log "Hello World!")
+```lisp
+(console.log "Hello World!")
+```
 
 **JavaScipt**
 
-    console.log("Hello World!");
+```javascript
+console.log("Hello World!");
+```
 
 Variables, Arrays, and Objects
 ----
@@ -46,25 +50,29 @@ object or array.
 
 **Hot Cocoa Lisp**
 
-    ;; initialize variables
-    (var foo 7)
-    (var bar [ 1 2 3 ] )
-    (var baz)
+```lisp
+;; initialize variables
+(var foo 7)
+(var bar [ 1 2 3 ] )
+(var baz)
 
-    ;; assignments
-    (set bar 3 4)
-    (set baz { one 1 two 2 } )
-    (set baz.three 3)
-    (set baz "four" 4)
+;; assignments
+(set bar 3 4)
+(set baz { one 1 two 2 } )
+(set baz.three 3)
+(set baz "four" 4)
+```
 
 **JavaScipt**
 
-    var foo = 7, bar = [1, 2, 3], baz;
-    
-    bar[3] = 4;
-    baz = { one: 1, two: 2 };
-    baz.three = 3;
-    baz["four"] = 4;
+```javascript
+var foo = 7, bar = [1, 2, 3], baz;
+
+bar[3] = 4;
+baz = { one: 1, two: 2 };
+baz.three = 3;
+baz["four"] = 4;
+```
 
 It should be noted that unike Lisp, words in places besides the
 beginning of an S-expression are not symbols that can be manipulated
@@ -87,31 +95,38 @@ combination of `def` and `#`:
 
 **Hot Cocoa Lisp**
 
-    (def factorial
-		(# (n)
-			(if (< n 2) 1
-				(* n (factorial (- n 1))))))
+```lisp
+(def factorial
+	(# (n)
+		(if (< n 2) 1
+			(* n (factorial (- n 1))))))
+```
 
 **JavaScipt**
 
-    var factorial = (function(n) { return ((n < 2) ? 1 : factorial(n - 1)) });
+```javascript
+var factorial = (function(n) { return ((n < 2) ? 1 : factorial(n - 1)) });
+```
 
-Three loops are provided in Hot Cocoa Lisp: `while`, `times`, and
+Three basic loops are provided in Hot Cocoa Lisp: `while`, `times`, and
 `for`.  `while` is the familiar while loop from JavaScript:
 
 **Hot Cocoa Lisp**
-	
-	(var input)
-    (while (!= "exit" (set input (prompt "enter a command")))
-		(alert (cat "You entered the command: " input)))
-	(alert "Goodbye")
-		
+
+```lisp
+(var input)
+(while (!= "exit" (set input (prompt "enter a command")))
+	(alert (cat "You entered the command: " input)))
+(alert "Goodbye")
+```		
 
 **JavaScipt**
 
-    var input;
-	(function() {while ((("exit" !== (input = prompt("enter a command"))))) { alert(("You entered the command: " + input)); }}).call(this);
-	alert("Goodbye");
+```javascript
+var input;
+(function() {while ((("exit" !== (input = prompt("enter a command"))))) { alert(("You entered the command: " + input)); }}).call(this);
+alert("Goodbye");
+```
 
 It's worth noting that the normal JavaScript looping construct gets
 wrapped in a function call here to ensure that while expression can be
@@ -119,29 +134,36 @@ nested inside of larger expression for example:
 
 **Hot Cocoa Lisp**
 	
-	(var input)
-	(if (!= "yes" (prompt "do you want to enter a loop?")) (alert "ok")
-		(while (!= "exit" (set input (prompt "enter a command")))
-			(alert (cat "You entered the command: " input))))
-	(alert "Goodbye")
-		
+```lisp
+(var input)
+(if (!= "yes" (prompt "do you want to enter a loop?")) (alert "ok")
+	(while (!= "exit" (set input (prompt "enter a command")))
+		(alert (cat "You entered the command: " input))))
+(alert "Goodbye")
+```		
 
 **JavaScipt**
 
-    var input;
-	((!== "yes" prompt("do you want to enter a loop?")) ? alert("ok") : (function() {while ((("exit" !== (input = prompt("enter a command"))))) { alert(("You entered the command: " + input)); }}).call(this));
-	alert("Goodbye");
+```javascript
+var input;
+((!== "yes" prompt("do you want to enter a loop?")) ? alert("ok") : (function() {while ((("exit" !== (input = prompt("enter a command"))))) { alert(("You entered the command: " + input)); }}).call(this));
+alert("Goodbye");
+```
 
 `times` is a standard loop that counts up from 0 to n:
 
 **Hot Cocoa Lisp**
 	
-	(times (x 10)
-		(console.log x))
+```lisp
+(times (x 10)
+	(console.log x))
+```
 
 **JavaScipt**
 
-	(function() { for (var x = 0; x < 10; x++) { console.log(x); }}).call(this);
+```javascript
+(function() { for (var x = 0; x < 10; x++) { console.log(x); }}).call(this);
+```
 
 `for` takes two forms depending on whether its first argument has 2 or
 3 elements.  With 2 the `for` acts like a Python-style for loop.  With
@@ -149,17 +171,21 @@ nested inside of larger expression for example:
 
 **Hot Cocoa Lisp**
 	
-	(for (x [ 2 4 6 ] )
-		(console.log(x)))
-	
-	(for ((var x 1) (< x 100) (set* x 2))
-		(console.log(x)))
+```lisp
+(for (x [ 2 4 6 ] )
+	(console.log(x)))
+
+(for ((var x 1) (< x 100) (set* x 2))
+	(console.log(x)))
+```
 
 **JavaScipt**
 
-	(function() { for (var _i_ = 0; _i_ < [2, 4, 6].length; _i_++) { var x = [2, 4, 6][_i_]; console.log(x); }}).call(this);
-	
-	(function() { for (var x = 1; x < 100; x *= 2) { console.log(x); }}).call(this);
+```javascript
+(function() { for (var _i_ = 0; _i_ < [2, 4, 6].length; _i_++) { var x = [2, 4, 6][_i_]; console.log(x); }}).call(this);
+
+(function() { for (var x = 1; x < 100; x *= 2) { console.log(x); }}).call(this);
+```
 
 The `set*` above is equivalent to the JavaScript `*=` operater.  There
 are similar constructs for other arithmetic operators including
@@ -175,31 +201,35 @@ to the compiled output to provide context for debugging purposes.
 
 **Hot Cocoa Lisp**
 
-    ;; define a function
-    (def do-math (# (x) (+ (* 7 x) (- x / 3))))
+```lisp
+;; define a function
+(def do-math (# (x) (+ (* 7 x) (- x / 3))))
 
-    ;; complex functional expression
-    (times (x 10)
-        (if (< x 5)
-            (console.log (do-math x))
-          (console.log (do-math (do-math x)))))
+;; complex functional expression
+(times (x 10)
+	(if (< x 5)
+	    (console.log (do-math x))
+	  (console.log (do-math (do-math x)))))
+```
 
 **JavaScipt**
 
-    var do_hyphen_math, x;
-    
-    // ;; define a function
-    // (def do-math (# (x) (+ (* 7 x) (/ x 3))))
-    
-    do_hyphen_math = (function(x) {  return ((7 * x) + (x / 3)); });
-    
-    // ;; complex functional expression
-    // (times (x 10)
-    //     (if (< x 5)
-    //         (console.log (do-math x))
-    //       (console.log (do-math (do-math x)))))
-    
-    (function() {for (x = 0; x < 10; x++) { (((x < 5)) ? console.log(do_hyphen_math(x)) : console.log(do_hyphen_math(do_hyphen_math(x)))); }}).call(this);
+```javascript
+var do_hyphen_math, x;
+
+// ;; define a function
+// (def do-math (# (x) (+ (* 7 x) (/ x 3))))
+
+do_hyphen_math = (function(x) {  return ((7 * x) + (x / 3)); });
+
+// ;; complex functional expression
+// (times (x 10)
+//     (if (< x 5)
+//         (console.log (do-math x))
+//       (console.log (do-math (do-math x)))))
+
+(function() {for (x = 0; x < 10; x++) { (((x < 5)) ? console.log(do_hyphen_math(x)) : console.log(do_hyphen_math(do_hyphen_math(x)))); }}).call(this);
+```
 
 <span id="identifiers"></span>
 
