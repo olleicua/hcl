@@ -79,7 +79,91 @@ As with Lisp, the `;` character begins a one line comment.
 Functions and Loops
 ----
 
-...
+Function literals (a.k.a. lambdas) can be defined using `lambda`,
+which can also be spelt `function`, or the much shorter `#`.  Because
+in JavaScript (just like Scheme) functions occupy the same namespace
+as other variables, a simple function definition can be made using a
+combination of `def` and `#`:
+
+**Hot Cocoa Lisp**
+
+    (def factorial
+		(# (n)
+			(if (< n 2) 1
+				(* n (factorial (- n 1))))))
+
+**JavaScipt**
+
+    var factorial = (function(n) { return ((n < 2) ? 1 : factorial(n - 1)) });
+
+Three loops are provided in Hot Cocoa Lisp: `while`, `times`, and
+`for`.  `while` is the familiar while loop from JavaScript:
+
+**Hot Cocoa Lisp**
+	
+	(var input)
+    (while (!= "exit" (set input (prompt "enter a command")))
+		(alert (cat "You entered the command: " input)))
+	(alert "Goodbye")
+		
+
+**JavaScipt**
+
+    var input;
+	(function() {while ((("exit" !== (input = prompt("enter a command"))))) { alert(("You entered the command: " + input)); }}).call(this);
+	alert("Goodbye");
+
+It's worth noting that the normal JavaScript looping construct gets
+wrapped in a function call here to ensure that while expression can be
+nested inside of larger expression for example:
+
+**Hot Cocoa Lisp**
+	
+	(var input)
+	(if (!= "yes" (prompt "do you want to enter a loop?")) (alert "ok")
+		(while (!= "exit" (set input (prompt "enter a command")))
+			(alert (cat "You entered the command: " input))))
+	(alert "Goodbye")
+		
+
+**JavaScipt**
+
+    var input;
+	((!== "yes" prompt("do you want to enter a loop?")) ? alert("ok") : (function() {while ((("exit" !== (input = prompt("enter a command"))))) { alert(("You entered the command: " + input)); }}).call(this));
+	alert("Goodbye");
+
+`times` is a standard loop that counts up from 0 to n:
+
+**Hot Cocoa Lisp**
+	
+	(times (x 10)
+		(console.log x))
+
+**JavaScipt**
+
+	(function() { for (var x = 0; x < 10; x++) { console.log(x); }}).call(this);
+
+`for` takes two forms depending on whether its first argument has 2 or
+3 elements.  With 2 the `for` acts like a Python-style for loop.  With
+3 the `for` acts like a for loop from JavaScript or C.
+
+**Hot Cocoa Lisp**
+	
+	(for (x [ 2 4 6 ] )
+		(console.log(x)))
+	
+	(for ((var x 1) (< x 100) (set* x 2))
+		(console.log(x)))
+
+**JavaScipt**
+
+	(function() { for (var _i_ = 0; _i_ < [2, 4, 6].length; _i_++) { var x = [2, 4, 6][_i_]; console.log(x); }}).call(this);
+	
+	(function() { for (var x = 1; x < 100; x *= 2) { console.log(x); }}).call(this);
+
+The `set*` above is equivalent to the JavaScript `*=` operater.  There
+are similar constructs for other arithmetic operators including
+`set+`, `set-`, and `set/`.
 
 Annotations
 ----
