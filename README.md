@@ -21,11 +21,11 @@ S-expressions and, like Lisp, every sytax in the language can take the
 form of function call.  Additionally, the dotted object access syntax
 from JavaScript (e.g. `foo.bar`) is allowed.  So for example:
 
-*Hot Cocoa Lisp*
+**Hot Cocoa Lisp**
 
     (console.log "Hello World!")
 
-*JavaScipt*
+**JavaScipt**
 
     console.log("Hello World!");
 
@@ -44,7 +44,7 @@ modified using `set`.  With two arguments `set` does variable
 assignement and with three arguments it modifies an element of an
 object or array.
 
-*Hot Cocoa Lisp*
+**Hot Cocoa Lisp**
 
     ;; initialize variables
     (var foo 7)
@@ -57,7 +57,7 @@ object or array.
     (set baz.three 3)
     (set baz "four" 4)
 
-*JavaScipt*
+**JavaScipt**
 
     var foo = 7, bar = [1, 2, 3], baz;
     
@@ -76,6 +76,11 @@ characters normally allowed in JavaScript identifiers (see
 
 As with Lisp, the `;` character begins a one line comment.
 
+Functions and Loops
+----
+
+...
+
 Annotations
 ----
 
@@ -84,7 +89,7 @@ the compiled JavaScript Source readable is basically a lost cause. For
 this reason inline annotations of the original source code are added
 to the compiled output to provide context for debugging purposes.
 
-*Hot Cocoa Lisp*
+**Hot Cocoa Lisp**
 
     ;; define a function
     (def do-math (# (x) (+ (* 7 x) (- x / 3))))
@@ -95,7 +100,7 @@ to the compiled output to provide context for debugging purposes.
             (console.log (do-math x))
           (console.log (do-math (do-math x)))))
 
-*JavaScipt*
+**JavaScipt**
 
     var do_hyphen_math, x;
     
@@ -112,10 +117,24 @@ to the compiled output to provide context for debugging purposes.
     
     (function() {for (x = 0; x < 10; x++) { (((x < 5)) ? console.log(do_hyphen_math(x)) : console.log(do_hyphen_math(do_hyphen_math(x)))); }}).call(this);
 
-
 <span id="identifiers"></span>
 
 Identifiers
+----
+
+...
+
+Underscore
+----
+
+...
+
+The read-evaluate-print loop
+----
+
+...
+
+Function reference
 ----
 
 ...
