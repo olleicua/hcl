@@ -19,13 +19,13 @@ The syntax of Hot Cocoa Lisp is a combination of that of JavaScript
 and that of Lisp.  Functions calls take the form of Lisp style
 S-expressions and, like Lisp, every sytax in the language can take the
 form of function call.  Additionally, the dotted object access syntax
-form JavaScript (e.g. `foo.bar`) is allowed.  So for example:
+from JavaScript (e.g. `foo.bar`) is allowed.  So for example:
 
-Hot Cocoa Lisp
+*Hot Cocoa Lisp*
 
     (console.log "Hello World!")
 
-JavaScipt
+*JavaScipt*
 
     console.log("Hello World!");
 
@@ -33,8 +33,8 @@ Variables, Arrays, and Objects
 ----
 
 Variables can be initialized with `var` or `def`.  The two are
-synonyms `def` is preferred when the value is expected not to change
-and `var` is preferred when it might change.
+synonyms but `def` is preferred when the value is expected not to
+change and `var` is preferred when it might change.
 
 Array and object literals can be declared exactly as they can in
 Javascript with the exception that the commas and colons are optional.
@@ -44,7 +44,7 @@ modified using `set`.  With two arguments `set` does variable
 assignement and with three arguments it modifies an element of an
 object or array.
 
-Hot Cocoa Lisp
+*Hot Cocoa Lisp*
 
     ;; initialize variables
     (var foo 7)
@@ -57,7 +57,7 @@ Hot Cocoa Lisp
     (set baz.three 3)
     (set baz "four" 4)
 
-JavaScipt
+*JavaScipt*
 
     var foo = 7, bar = [1, 2, 3], baz;
     
@@ -83,6 +83,35 @@ One of the downsides of emphasizing a functional style is that making
 the compiled JavaScript Source readable is basically a lost cause. For
 this reason inline annotations of the original source code are added
 to the compiled output to provide context for debugging purposes.
+
+*Hot Cocoa Lisp*
+
+    ;; define a function
+    (def do-math (# (x) (+ (* 7 x) (- x / 3))))
+
+    ;; complex functional expression
+    (times (x 10)
+        (if (< x 5)
+            (console.log (do-math x))
+          (console.log (do-math (do-math x)))))
+
+*JavaScipt*
+
+    var do_hyphen_math, x;
+    
+    // ;; define a function
+    // (def do-math (# (x) (+ (* 7 x) (/ x 3))))
+    
+    do_hyphen_math = (function(x) {  return ((7 * x) + (x / 3)); });
+    
+    // ;; complex functional expression
+    // (times (x 10)
+    //     (if (< x 5)
+    //         (console.log (do-math x))
+    //       (console.log (do-math (do-math x)))))
+    
+    (function() {for (x = 0; x < 10; x++) { (((x < 5)) ? console.log(do_hyphen_math(x)) : console.log(do_hyphen_math(do_hyphen_math(x)))); }}).call(this);
+
 
 <span id="identifiers"></span>
 
