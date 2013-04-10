@@ -22,9 +22,11 @@ form of function call.  Additionally, the dotted object access syntax
 form JavaScript (e.g. `foo.bar`) is allowed.  So for example:
 
 Hot Cocoa Lisp
+
     (console.log "Hello World!")
 
 JavaScipt
+
     console.log("Hello World!");
 
 Variables, Arrays, and Objects
@@ -43,6 +45,7 @@ assignement and with three arguments it modifies an element of an
 object or array.
 
 Hot Cocoa Lisp
+
     ;; initialize variables
     (var foo 7)
     (var bar [ 1 2 3 ] )
@@ -55,6 +58,7 @@ Hot Cocoa Lisp
     (set baz "four" 4)
 
 JavaScipt
+
     var foo = 7, bar = [1, 2, 3], baz;
     
     bar[3] = 4;
