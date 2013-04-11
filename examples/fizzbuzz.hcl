@@ -7,7 +7,7 @@
 (def fizzbuzz
      (# (n)
         (console.log
-         (evaluated-if (# (number words) (empty? words)) n
+         (evaluated-if (# (_ words) (empty? words)) n
                        (reduce (map [[3 "Fizz"] [5 "Buzz"]]
                                         (# (pair)
                                            (if (divisible n (get pair 0))

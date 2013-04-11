@@ -6,7 +6,7 @@
       (set l.next null)
       result))))
 
-(def list { v 1 next { v 2 next { v 3 } } })
+(def linked-list { v 1 next { v 2 next { v 3 } } })
 
-(console.log (JSON.stringify list))
-(console.log (JSON.stringify (reverse-list list)))
+(console.log (JSON.stringify linked-list))
+(console.log (JSON.stringify (reverse-list linked-list)))
