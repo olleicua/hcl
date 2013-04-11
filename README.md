@@ -40,6 +40,17 @@ Hot Cocoa Lisp can be installed using [npm](https://npmjs.org/):
 
     $ npm install ????
 
+<span style="color:red;">THE ABOVE IS NOT YET TRUE!  FOR NOW USE THE BELOW TO INSTALL</span>
+
+Alternately, it can be installed using git:
+
+	$ mkdir hcl-project
+	$ cd hcl-project
+    $ git clone https://github.com/olleicua/hot-cocoa.git
+	$ git clone https://github.com/olleicua/hcl.git
+	$ ln -s /path/to/hcl-project/hot-cocoa hcl/node_modules/hot-cocoa
+	$ ln -s /path/to/hcl-project/hcl/bin/hcl /path/to/bin/hcl
+
 Once installed a file can be compiled and run using `hcl -n`:
 
     $ cat hello.hcl
