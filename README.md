@@ -40,7 +40,7 @@ Hot Cocoa Lisp can be installed using [npm](https://npmjs.org/):
 
     $ npm install ????
 
-<span style="color:red;">THE ABOVE IS NOT YET TRUE!  FOR NOW USE THE BELOW TO INSTALL</span>
+**THE ABOVE IS NOT YET TRUE!  FOR NOW USE THE BELOW TO INSTALL**
 
 Alternately, it can be installed using git:
 
