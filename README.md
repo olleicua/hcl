@@ -51,8 +51,8 @@ Once installed a file can be compiled and run using `hcl -n`:
 There is also a REPL:
 
     $ hcl
-	hcl> (+ 1 2 3)
-	6
+    hcl> (+ 1 2 3)
+    6
 
 More instructions can be found using `hcl --help`
 

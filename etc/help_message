@@ -10,3 +10,4 @@ Options:
 -v, --version         Display the version number
 -d, --debug           Run the REPL in debug mode
 -u, --underscore      Include underscore.js
+-m, --minify          Minify output
