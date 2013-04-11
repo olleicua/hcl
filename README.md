@@ -48,6 +48,12 @@ Once installed a file can be compiled and run using `hcl -n`:
     $ hcl -n hello.hcl
     Hello World
 
+There is also a REPL:
+
+    $ hcl
+	hcl> (+ 1 2 3)
+	6
+
 More instructions can be found using `hcl --help`
 
 Variables, Arrays, and Objects
@@ -259,12 +265,23 @@ do_hyphen_math = (function(x) {  return ((7 * x) + (x / 3)); });
 Underscore
 ----
 
-...
+The `-u` flag makes Underscore.js 1.4.3 available at the top level.
+Each property of the the `_` object added as a top level function.
+For example:
 
-The read-evaluate-print loop
-----
+```lisp
+(def _ (require "underscore"))
 
-...
+(console.log (_.map [ 1 2 3 ] (# (x) (+ 2 x))))
+```
+
+could be written using the `-u` flag as
+
+```lisp
+(console.log (map [ 1 2 3 ] (# (x) (+ 2 x))))
+```
+
+This also works in the REPL.
 
 <span id="syntax-details"></span>
 
@@ -292,25 +309,25 @@ respectively).
 Number literals follow the JSON
 specification<sup>[2](#references)</sup> for numbers.  That is to say
 anything that matches the regular expression
-`-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?` is considdered a
+`-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?` is parsed as a
 number.  Additionally `Infinity` and `-Infinity` are interpreted as
 numbers.
 
 ### string literals
 
-String literals work just like they do in JavaScript except they the
+String literals work just as they do in JavaScript except they the
 must use double quotes and not single quotes.
 
 ### identifiers
 
 Identifiers in may contain any combination of letters digits or any of
- the following characters:
+the following characters:
 
 `_`, `!`, `?`, `$`, `%`, `&`, `@`, `#`, `|`, `*`, `+`, `-`, `=`, `/`,
 `<`, `>`, `^`, or <code>`</code>
 
 Identifiers may not begin with digits or be interpretable as a
-number.  For example `-1` will be interpretted as a number and not an
+number.  For example `-1` will be parsed as a number and not an
 identifier.  This is implemented by replacing all occurences of
 symbols not normally allowed in JavaScript identifiers with underscore
 delimeted place-holders, for example `a-b` becomes `a_hyphen_b`.  To
@@ -318,15 +335,51 @@ prevent accidental overlap `_` is replaced with `__`.
 
 ### array and object literals
 
-...
+Array and object literals are translated by the parser into
+S-expressions so:
+
+```lisp
+{ colors [ "red" "blue" "green" ]
+  shapes [ "square" "triangle" ] }
+```
+
+is equivalent to 
+
+```lisp
+(object colors (array "red" "blue" "green")
+        shapes (array "square" "triangle"))
+```
+
+either will be compiled to
+
+```javascript
+{ colors: ["red", "blue", "green"], shapes: ["square", "triangle"] }
+```
 
 ### dotted object access
 
-...
+Dotted object access is also translated by the parser to
+S-expressions.  This means that
+
+```lisp
+(set foo.bar (snap.crackle.pop))
+```
+
+is equivalent to 
+
+```lisp
+(set (. foo bar) ((. snap crackle pop)))
+```
+
+which will be compiled to
+
+```javascript
+foo.bar = snap.crackle.pop();
+```
 
 ### quoting
 
-...
+???
 
 Function reference
 ----
