@@ -95,6 +95,8 @@ var tests = [
    false],
   [eval_test('(or (integer? 7.5) (even? 9) (odd? 8) (contains? [1] 2))'),
    false],
+  [eval_test('(and (number? Infinity) (number? -Infinity) (< -Infinity 0 Infinity) (= Infinity (/ 1 0)))'),
+   true],
   [eval_test('(begin (set fib (# (n) (if (< n 1) 1 (+ (fib (--1 n)) (fib (- n 2)))))) (fib 8))'),
    55],
   [eval_test('(begin (set factorial (# (n) (if (= n 1) 1 (* n (factorial (--1 n)))))) (factorial 6))'),
