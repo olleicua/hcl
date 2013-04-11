@@ -36,7 +36,7 @@ console.log("Hello World!");
 Getting Started
 ----
 
-Hot Cocoa Lisp can be installed using [npm](????):
+Hot Cocoa Lisp can be installed using [npm](https://npmjs.org/):
 
     $ npm install ????
 
@@ -283,8 +283,6 @@ could be written using the `-u` flag as
 
 This also works in the REPL.
 
-<span id="syntax-details"></span>
-
 Syntax Details
 ----
 
@@ -386,7 +384,7 @@ Function reference
 
 ...
 
-<span id="references"></span>
 * * *
-1: [http://www.crockford.com/javascript/javascript.html](http://www.crockford.com/javascript/javascript.html)
-2: [http://json.org/](http://json.org/)
+#### References
+1. [http://www.crockford.com/javascript/javascript.html](http://www.crockford.com/javascript/javascript.html)
+2. [http://json.org/](http://json.org/)
