@@ -80,7 +80,7 @@ Array and object literals can be declared exactly as they can in
 JavaScript with the exception that the commas and colons are optional.
 
 Elements of arrays and objects can be accessed using `get`. (Or
-synonymously `nth`).  Get is equivalent to the JavaScript syntax
+synonymously `nth`).  `get` is equivalent to the JavaScript syntax
 `obj[key]`.
 
 Variables can be initialized with `var` or `def`.  The two are
