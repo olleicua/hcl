@@ -49,30 +49,35 @@ if (args._[0]) {
   repl.start({
     prompt: 'hcl> ',
     eval: function(cmd, context, filename, callback) {
-      try {
-        var ast = hcl.analyze(hcl.parse(hcl.scan(cmd.toString())));
-        var js = compile(ast[0][0], undefined, undefined, {
-          repl_mode: true,
-          add_to_outer_scope: function(name, value) {
-            if (args.debug) {
-              console.log('js (', name, '):', value);
+      if (cmd.replace(/^\(/, '').replace(/\)$/, '').trim().length === 0) {
+        callback(null);
+      } else {
+        try {
+          var ast = hcl.analyze(hcl.parse(hcl.scan(cmd.toString())));
+          var js = compile(ast[0][0], undefined, undefined, {
+            repl_mode: true,
+            omit_annotations: true,
+            add_to_outer_scope: function(name, value) {
+              if (args.debug) {
+                console.log('js (', name, '):', value);
+              }
+              global[name] = eval('(' + value + ')');
+            },
+            add_to_scope: function(name, value) {
+              if (args.debug) {
+                console.log('js (', name, '):', value);
+              }
+              global[name] = eval('(' + value + ')');
             }
-            global[name] = eval('(' + value + ')');
-          },
-          add_to_scope: function(name, value) {
-            if (args.debug) {
-              console.log('js (', name, '):', value);
-            }
-            global[name] = eval('(' + value + ')');
+          });
+          if (args.debug) {
+            console.log('js:', js.trim());
           }
-        });
-        if (args.debug) {
-          console.log('js:', js);
+          var res = eval('(' + js.replace(/;$/, '') + ')');
+          callback(null, res);
+        } catch(e) {
+          callback(null, e);
         }
-        var res = eval('(' + js.replace(/;$/, '') + ')');
-        callback(null, res);
-      } catch(e) {
-        callback(null, e);
       }
     },
     writer: function(value) {

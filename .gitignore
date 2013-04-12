@@ -1,2 +1,3 @@
 node_modules/hot-cocoa
 examples/*.js
+reference_gen.*
