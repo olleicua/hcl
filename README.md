@@ -253,6 +253,39 @@ are similar constructs for other arithmetic operators including
 Splats
 ----
 
+As with JavaScript, user defined functions can take any number of
+arguments.  If more arguments are specified in the API then are passed
+in the call, the extra arguments are assigned the value `undefined`.
+All arguments are then stored in the `arguments` object.  Unlike
+JavaScript, arbitrary arguments can also be captured using splats.  If
+the last argument specified in the API ends with three dots then all
+remaining arguments passed are stored in an array.
+
+**Hot Cocoa Lisp**
+    
+```lisp
+(def print-numbers
+    (# (label numbers...)
+        (for (n numbers)
+            (console.log (cat label ": " n)))))
+
+(print-numbers "num" 1 2 3)
+```
+
+**JavaScript**
+
+```javascript
+print_hyphen_numbers = (function(label) {var numbers = [].slice.call(arguments, 1), _i0_, n;  return (function() {for (_i0_ = 0; _i0_ < numbers.length; _i0_++) { var n = numbers[_i0_]; console.log((label + ": " + n)); }}).call(this); });
+
+print_hyphen_numbers("num", 1, 2, 3);
+```
+
+**Output**
+
+    num: 1
+    num: 2
+    num: 3
+
 Annotations
 ----
 
