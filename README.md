@@ -12,12 +12,18 @@ by providing a natural syntax for highly nested function calls and
 providing tools to make common functional idioms more natural while
 maintaining all of the good parts of JavaScript.
 
+This implementation runs using [Node.js](http://nodejs.org/) as a
+convenient command line interface for JavaScript.  It is often
+convenient to also use Node.js to run code compiled from Hot Cocoa
+Lisp.  Many of the examples below assume basic familiarity with the
+Node.js CLI.
+
 Basic Syntax
 ----
 
 The syntax of Hot Cocoa Lisp is a combination of that of JavaScript
 and that of Lisp.  Functions calls take the form of Lisp style
-S-expressions and, like Lisp, every sytax in the language can take the
+S-expressions and, like Lisp, every syntax in the language takes the
 form of function call.  Additionally, the dotted object access syntax
 from JavaScript (e.g. `foo.bar`) is allowed.  So for example:
 
@@ -27,7 +33,7 @@ from JavaScript (e.g. `foo.bar`) is allowed.  So for example:
 (console.log "Hello World!")
 ```
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 console.log("Hello World!");
@@ -67,20 +73,25 @@ There is also a REPL:
 
 More instructions can be found using `hcl --help`
 
-Variables, Arrays, and Objects
+Arrays, Objects, and Variables
 ----
+
+Array and object literals can be declared exactly as they can in
+JavaScript with the exception that the commas and colons are optional.
+
+Elements of arrays and objects can be accessed using `get`. (Or
+synonymously `nth`).  Get is equivalent to the JavaScript syntax
+`obj[key]`.
 
 Variables can be initialized with `var` or `def`.  The two are
 synonyms but `def` is preferred when the value is expected not to
 change and `var` is preferred when it might change.
 
-Array and object literals can be declared exactly as they can in
-Javascript with the exception that the commas and colons are optional.
-
 The values of variables and elements of objects and arrays can be
-modified using `set`.  With two arguments `set` does variable
-assignement and with three arguments it modifies an element of an
-object or array.
+modified using `set` which is equivalent to the JavaScript `a = b`.
+`set` has a special form with 3 arguments which can be used to modify
+an element of an object or array and is equivalent to the JavaScript
+`a[b] = c`.
 
 **Hot Cocoa Lisp**
 
@@ -90,17 +101,23 @@ object or array.
 (var bar [ 1 2 3 ] )
 (var baz)
 
+;; access
+(console.log (get bar 0)) ; 1
+
 ;; assignments
-(set bar 3 4)
+(set (get bar 3) 4)
 (set baz { one 1 two 2 } )
 (set baz.three 3)
-(set baz "four" 4)
+(set (get baz "four") 4)
+(set baz "four" 4) ; alternate special form
 ```
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 var foo = 7, bar = [1, 2, 3], baz;
+
+console.log(bar[0]); // 1
 
 bar[3] = 4;
 baz = { one: 1, two: 2 };
@@ -137,7 +154,7 @@ combination of `def` and `#`:
             (* n (factorial (- n 1))))))
 ```
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 var factorial = (function(n) { return ((n < 2) ? 1 : factorial(n - 1)) });
@@ -158,7 +175,7 @@ Three basic loops are provided in Hot Cocoa Lisp: `while`, `times`, and
 (alert "Goodbye")
 ```        
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 var input;
@@ -180,7 +197,7 @@ nested inside of larger expression for example:
 (alert "Goodbye")
 ```        
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 var input;
@@ -199,7 +216,7 @@ alert("Goodbye");
     (console.log x))
 ```
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 (function() { for (var x = 0; x < 10; x++) { console.log(x); }}).call(this);
@@ -221,7 +238,7 @@ alert("Goodbye");
     (console.log(x)))
 ```
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 (function() { for (var _i_ = 0; _i_ < [2, 4, 6].length; _i_++) { var x = [2, 4, 6][_i_]; console.log(x); }}).call(this);
@@ -254,7 +271,7 @@ to the compiled output to provide context for debugging purposes.
       (console.log (do-math (do-math x)))))
 ```
 
-**JavaScipt**
+**JavaScript**
 
 ```javascript
 var do_hyphen_math, x;
@@ -337,10 +354,34 @@ the following characters:
 
 Identifiers may not begin with digits or be interpretable as a
 number.  For example `-1` will be parsed as a number and not an
-identifier.  This is implemented by replacing all occurences of
+identifier.  Identifiers with characters that aren't normally allowed
+in JavaScript in the are represented by replacing all occurences of
 symbols not normally allowed in JavaScript identifiers with underscore
-delimeted place-holders, for example `a-b` becomes `a_hyphen_b`.  To
-prevent accidental overlap `_` is replaced with `__`.
+delimited place-holders, for example `a/b` becomes `a_slash_b`.  To
+prevent accidental overlap `_` is replaced with `__`.  This creates an
+inconvenience in the case that global variables from external
+libraries written in JavaScript contain underscores.  It is always
+possible to access them via the global object (`global` in Node.js or
+`window` in a browser) however because this can be somewhat
+unreliable, the `from-js` function is provided:
+
+**External JavaScript Library**
+
+```javascript
+some_cool_global_variable = { ... }
+```
+
+**Hot Cocoa Lisp**
+
+```lisp
+(make-use-of (from-js some_cool_global_variable))
+```
+
+**Compiled JavaScript**
+
+```javascript
+make_hyphen_use_hyphen_of(some_cool_global_variable);
+```
 
 ### array and object literals
 
@@ -385,6 +426,39 @@ which will be compiled to
 ```javascript
 foo.bar = snap.crackle.pop();
 ```
+
+**Hot Cocoa Lisp**
+
+```lisp
+;; define a function
+(def do-math (# (x) (+ (* 7 x) (- x / 3))))
+
+;; complex functional expression
+(times (x 10)
+    (if (< x 5)
+        (console.log (do-math x))
+      (console.log (do-math (do-math x)))))
+```
+
+**JavaScript**
+
+```javascript
+var do_hyphen_math, x;
+
+// ;; define a function
+// (def do-math (# (x) (+ (* 7 x) (/ x 3))))
+
+do_hyphen_math = (function(x) {  return ((7 * x) + (x / 3)); });
+
+// ;; complex functional expression
+// (times (x 10)
+//     (if (< x 5)
+//         (console.log (do-math x))
+//       (console.log (do-math (do-math x)))))
+
+(function() {for (x = 0; x < 10; x++) { (((x < 5)) ? console.log(do_hyphen_math(x)) : console.log(do_hyphen_math(do_hyphen_math(x)))); }}).call(this);
+```
+
 
 ### quoting
 

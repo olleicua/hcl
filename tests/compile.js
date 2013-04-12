@@ -9,7 +9,9 @@ var compile = function(source) {
 };
 
 var compile_test = function(source) {
-  return compile(source).replace(/\n/gm, '');
+  return function() {
+    return compile(source).replace(/\n/gm, '');
+  };
 }
 
 var eval_test = function(source) {
@@ -21,7 +23,7 @@ var eval_test = function(source) {
 //console.log(hcl.analyze(hcl.parse(hcl.scan('(replace "1 2 3 (4) 5 (6)" /\((\d)\)/ "[$1]")')))[0])
 
 var tests = [
-  [function() { return compile_test('(if 1)'); },
+  [compile_test('(if 1)'),
    'Error: Wrong number of arguments for `if`: 1 for 3 at position 1:0'],
   [compile_test('(console.log "hello")'),
    'console.log("hello");'],
@@ -51,8 +53,20 @@ var tests = [
    [1, 2, 3]],
   [eval_test('{a 1 b 2}'),
    { a: 1, b: 2 }],
+  [compile_test('(from-js foo_bar_baz)'),
+   'foo_bar_baz;'],
+  [compile_test('(from-js foo_bar_baz+)'),
+   'Error: `foo_bar_baz+` is not a valid JavaScript identifier'],
   [eval_test('{+ 1}'),
-   { _plus_: 1 }],
+   { '+': 1 }],
+  [eval_test('(begin (set foo { x_x 1 "y_y" 2 } ) (+ (get foo "x_x") foo.y_y))'),
+   3],
+  [eval_test('(begin (set foo { } ) (set foo "y_y" 1) (set foo.x_x 1) (set+ foo.x_x 1) (+ (get foo "x_x") foo.y_y))'),
+   3],
+  [eval_test('(begin (set foo 2) (set+ foo 1) (set* foo 4) (set- foo 3) (set/ foo 3) foo)'),
+   3],
+  [eval_test('(begin (set foo { x 2 } ) (set+ foo "x" 1) (set* foo "x" 4) (set- foo "x" 3) (set/ foo "x" 3) (get foo "x"))'),
+   3],
   [eval_test('(odd? 21)'),
    true],
   [eval_test('(empty? [])'),

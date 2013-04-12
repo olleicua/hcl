@@ -1,7 +1,7 @@
 Usage: hcl [-hnbvdu] [file]
 
 If a file is specified it will be compiled to a .js file
- otherwise the REPL will be openned.
+ otherwise the REPL will be opened.
 
 Options:
 -h, --help            Display this help message
