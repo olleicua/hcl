@@ -1,0 +1,25 @@
+{
+  "name": "hot-cocoa-lisp",
+  "version": "0.0.0",
+  "author": "Sam Auciello <info@samauciello.com>",
+  "description": "A Lisp-style language that compiles to JavaScript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olleicua/hcl.git"
+  },
+  "bin": {
+    "hcl": "./bin/hcl"
+  },
+  "keywords": [
+  ],
+  "dependencies": {
+    "hot-cocoa": "0.0.2",
+    "optimist": "0.3.5",
+    "uglify-js": "2.2.5",
+    "underscore": "1.4.3"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.8.9"
+  }
+}
