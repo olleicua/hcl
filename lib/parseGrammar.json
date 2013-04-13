@@ -7,18 +7,12 @@
     []
   ],
   "_expression": [
-    ["_puncuated-list"],
     ["_dotted-chain"],
     ["_list"],
     ["_dotted-list"],
     ["_literal-list"],
     ["_object"],
     ["_atom"]
-  ],
-  "_puncuated-list": [
-    ["'", "_expression"],
-    ["`", "_expression"],
-    ["~", "_expression"]
   ],
   "_list": [
     ["(", "_list-tail"]

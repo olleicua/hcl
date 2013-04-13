@@ -33,6 +33,8 @@ var tests = [
    false],
   [eval_test('(= false false false)'),
    true],
+  [eval_test('(= \'foo\' "foo")'),
+   true],
   [eval_test('(cond ((< 6 8) "less") (true "not less"))'),
    'less'],
   [eval_test('(cond ((< 16 8) "less") (true "not less"))'),

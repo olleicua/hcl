@@ -7,17 +7,8 @@ module.exports = function(string2ast) {
             return string2ast('"this is a backslash: \\\\" ; this is a comment').json(true); },
          '"this is a backslash: \\\\"'],
         [function() {
-            return string2ast('\'()').json(true); },
-         '[quote, []]'],
-        [function() {
             return string2ast('(a\nb)').json(true); },
          '[a, b]'],
-        [function() {
-            return string2ast('\'(1 2 3)').json(true); },
-         '[quote, [1, 2, 3]]'],
-        [function() {
-            return string2ast('\`(1 2 ~(- 4 1))').json(true); },
-         '[quasiquote, [1, 2, [unquote, [-, 4, 1]]]]'],
         [function() {
             return string2ast('(+ 1 2)').json(true); },
          '[+, 1, 2]'],

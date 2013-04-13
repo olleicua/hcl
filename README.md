@@ -366,15 +366,14 @@ numbers.
 
 ### string literals
 
-String literals work just as they do in JavaScript except they the
-must use double quotes and not single quotes.
+String literals work just as they do in JavaScript.
 
 ### identifiers
 
 Identifiers in may contain any combination of letters digits or any of
 the following characters:
 
-`_`, `!`, `?`, `$`, `%`, `&`, `@`, `#`, `|`, `*`, `+`, `-`, `=`, `/`,
+`_`, `!`, `?`, `$`, `%`, `&`, `@`, `#`, `|`, `~`, `*`, `+`, `-`, `=`, `/`,
 `<`, `>`, `^`, or <code>`</code>
 
 Identifiers may not begin with digits or be interpretable as a
@@ -483,11 +482,6 @@ do_hyphen_math = (function(x) {  return ((7 * x) + (x / 3)); });
 
 (function() {for (x = 0; x < 10; x++) { (((x < 5)) ? console.log(do_hyphen_math(x)) : console.log(do_hyphen_math(do_hyphen_math(x)))); }}).call(this);
 ```
-
-
-### quoting
-
-???
 
 Function reference
 ----
