@@ -22,7 +22,8 @@ if (args.help) {
 }
 
 if (args.version) {
-  console.log('Hot Cocoa Lisp version 0.0.1');
+  console.log(format('Hot Cocoa Lisp version ~~', [
+	require('../package.json').version]));
   process.exit(0);
 }
 
