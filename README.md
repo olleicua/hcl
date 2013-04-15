@@ -487,10 +487,22 @@ Function reference
 ----
 
 The following reference describes all of the syntaxes built into Hot
-Cocoa Lisp.  Functions marked with _*_ don't necessarily compile all
+Cocoa Lisp.
+
+Functions marked with _*_ don't necessarily compile all
 of their arguments.
 
+Functions marked with _**_ can be accessed by their names within the
+language.  For example:
+
+```lisp
+;; this should be compiled with the -u flag to unclude map from underscore
+(map [ 1 2 3 ] +1) ; [ 2 3 4 ]
+```
+
 ### nop
+
+_**_
 
      (nop)
 
@@ -529,6 +541,8 @@ object.key1.key2;
 ```
 
 ### get
+
+_**_
 
 Synonyms: `nth`
 
@@ -593,6 +607,8 @@ compiled and interpreted as a value.
 
 ### inherit
 
+_**_
+
 Synonyms: `new`
 
     (inherit obj)
@@ -617,6 +633,8 @@ bar["a"] ; 1
 ```
 
 ### if
+
+_**_
 
      (if condition yes no)
 
@@ -881,6 +899,8 @@ Returns `undefined`.
 
 ### +
 
+_**_
+
 Synonyms: `cat`
 
     (+ summand1 additional_summands...)
@@ -904,6 +924,8 @@ them in order.
 
 ### +1
 
+_**_
+
      (+1 summand)
 
 Takes 1 argument.  Adds 1 to the summand.
@@ -921,6 +943,8 @@ Takes 1 argument.  Adds 1 to the summand.
 ```
 
 ### -
+
+_**_
 
      (- args...)
 
@@ -954,6 +978,8 @@ Subtracts each of the subtrahends from the minuend.
 
 ### --1
 
+_**_
+
      (--1 minuend)
 
 Takes 1 argument.  Subtracts 1 from the minuend.
@@ -972,6 +998,8 @@ Takes 1 argument.  Subtracts 1 from the minuend.
 
 ### *
 
+_**_
+
      (* factor1 additional_factors...)
 
 Takes 2 or more arguments and multiplies them together.
@@ -989,6 +1017,8 @@ Takes 2 or more arguments and multiplies them together.
 ```
 
 ### *2
+
+_**_
 
 Synonyms: `double`
 
@@ -1010,6 +1040,8 @@ Takes 1 argument.  Multiplies the factor by 2.
 
 ### /
 
+_**_
+
      (/ dividend divisors...)
 
 Takes 2 or more arguments.  Divides the dividend by each of the divisors.
@@ -1029,6 +1061,8 @@ Takes 2 or more arguments.  Divides the dividend by each of the divisors.
 ```
 
 ### /2
+
+_**_
 
 Synonyms: `half`
 
@@ -1050,6 +1084,8 @@ Takes 1 argument.  Divides the dividend by 2.
 
 ### ^
 
+_**_
+
      (^ base exponent)
 
 Takes 2 arguments.  Returns the base to the power of the exponent.
@@ -1067,6 +1103,8 @@ Math.pow(2, 5) // 32
 ```
 
 ### ^2
+
+_**_
 
 Synonyms: `square`
 
@@ -1088,6 +1126,8 @@ Takes 1 argument.  Squares the base.
 
 ### sqrt
 
+_**_
+
      (sqrt number)
 
 Takes 1 argument.  Returns the square root of the number.
@@ -1105,6 +1145,8 @@ Math.sqrt(100) // 10
 ```
 
 ### %
+
+_**_
 
 Synonyms: `mod`
 
@@ -1129,6 +1171,8 @@ replaced by the remainder of number / modulus.
 
 ### <
 
+_**_
+
 Synonyms: `lt?`
 
     (< number additional_numbers...)
@@ -1151,6 +1195,8 @@ than the previous.
 ```
 
 ### >
+
+_**_
 
 Synonyms: `gt?`
 
@@ -1175,6 +1221,8 @@ than the previous.
 
 ### <=
 
+_**_
+
 Synonyms: `lte?`
 
     (<= number additional_numbers...)
@@ -1197,6 +1245,8 @@ than or equal to the previous.
 ```
 
 ### >=
+
+_**_
 
 Synonyms: `gte?`
 
@@ -1221,6 +1271,8 @@ than or equal to the previous.
 
 ### =
 
+_**_
+
 Synonyms: `is`, `is?`, `eq`, `eq?`, `equal`, `equal?`, `equals`, `equals?`
 
     (= arg1 args...)
@@ -1243,6 +1295,8 @@ equal.
 ```
 
 ### !=
+
+_**_
 
 Synonyms: `isnt`, `isnt?`, `neq`, `neq?`
 
@@ -1267,6 +1321,8 @@ arguments are equal.
 
 ### =0
 
+_**_
+
 Synonyms: `zero?`
 
     (=0 number)
@@ -1286,6 +1342,8 @@ Takes 1 argument.  Returns true if the number is 0.
 ```
 
 ### &
+
+_**_
 
 Synonyms: `bit-and`
 
@@ -1309,6 +1367,8 @@ Takes 2 arguments and performs a bitwise and between them.
 
 Synonyms: `bit-or`
 
+_**_
+
     (| number1 number2)
 
 Takes 2 arguments and performs a bitwise or between them.
@@ -1326,6 +1386,8 @@ Takes 2 arguments and performs a bitwise or between them.
 ```
 
 ### <<
+
+_**_
 
 Synonyms: `bit-shift-left`
 
@@ -1348,6 +1410,8 @@ specified number of bits.
 
 ### >>
 
+_**_
+
 Synonyms: `bit-shift-right`
 
     (>> number bits)
@@ -1369,6 +1433,8 @@ specified number of bits.
 
 ### not
 
+_**_
+
 Synonyms: `not?`, `!`
 
     (not arg)
@@ -1388,6 +1454,8 @@ Takes 1 argument and returns the boolean opposite of it.
 ```
 
 ### and
+
+_**_
 
 Synonyms: `and?`, `&&`
 
@@ -1410,6 +1478,8 @@ true.
 
 ### or
 
+_**_
+
 Synonyms: `or?`, `||`
 
     (or arg1 arg2...)
@@ -1430,6 +1500,8 @@ true.
 ```
 
 ### xor
+
+_**_
 
      (xor arg1 arg2)
 
@@ -1762,6 +1834,8 @@ an array.
 
 ### nil?
 
+_**_
+
      (nil? arg)
 
 Takes 1 argument and returns true if it is `null` or `undefined`.
@@ -1779,6 +1853,8 @@ Takes 1 argument and returns true if it is `null` or `undefined`.
 ```
 
 ### boolean?
+
+_**_
 
      (boolean? arg)
 
@@ -1798,6 +1874,8 @@ Takes 1 argument and returns true if it is `true` or `false`.
 
 ### number?
 
+_**_
+
      (number? arg)
 
 Takes 1 argument and returns true if it is a number.
@@ -1816,6 +1894,8 @@ Takes 1 argument and returns true if it is a number.
 
 ### string?
 
+_**_
+
      (string? arg)
 
 Takes 1 argument and returns true if it is a string.
@@ -1833,6 +1913,8 @@ Takes 1 argument and returns true if it is a string.
 ```
 
 ### list?
+
+_**_
 
 Synonyms: `array?`
 
@@ -1854,6 +1936,8 @@ Takes 1 argument and returns true if it is an array.
 
 ### object?
 
+_**_
+
      (object? arg)
 
 Takes 1 argument and returns true if it is an object.
@@ -1871,6 +1955,8 @@ Takes 1 argument and returns true if it is an object.
 ```
 
 ### re?
+
+_**_
 
 Synonyms: `regex?`, `regexp?`
 
@@ -1892,6 +1978,8 @@ Takes 1 argument and returns true if it is a regular expression.
 
 ### function?
 
+_**_
+
 Synonyms: `lambda?`, `#?`
 
     (function? arg)
@@ -1912,6 +2000,8 @@ Takes 1 argument and returns true if it is a function.
 
 ### empty?
 
+_**_
+
      (empty? arg)
 
 Takes 1 argument and returns true if it is `null` or has a length of 0.
@@ -1929,6 +2019,8 @@ Takes 1 argument and returns true if it is `null` or has a length of 0.
 ```
 
 ### integer?
+
+_**_
 
      (integer? arg)
 
@@ -1948,6 +2040,8 @@ Takes 1 argument and returns true if it is an integer.
 
 ### even?
 
+_**_
+
      (even? arg)
 
 Takes 1 argument and returns true if it is divisible by 2.
@@ -1965,6 +2059,8 @@ Takes 1 argument and returns true if it is divisible by 2.
 ```
 
 ### odd?
+
+_**_
 
      (odd? arg)
 
@@ -1985,6 +2081,8 @@ divisible by 2.
 
 ### contains?
 
+_**_
+
      (contains? array value)
 
 Takes 2 arguments.  Returns true if the array contains the value.
@@ -2002,6 +2100,8 @@ Takes 2 arguments.  Returns true if the array contains the value.
 ```
 
 ### type
+
+_**_
 
 Synonyms: `typeof`
 
@@ -2025,6 +2125,8 @@ and function.
 
 ### string
 
+_**_
+
      (string arg)
 
 Takes 1 argument and converts it to a string.
@@ -2043,6 +2145,8 @@ Takes 1 argument and converts it to a string.
 
 ### number
 
+_**_
+
      (number arg)
 
 Takes 1 argument and converts it to a number.
@@ -2060,6 +2164,8 @@ parseFloat("10") // 10
 ```
 
 ### integer
+
+_**_
 
      (integer arg1)
 
@@ -2123,6 +2229,8 @@ the second relaced with the third.
 ```
 
 ### size
+
+_**_
 
 Synonyms: `length`, `count`
 

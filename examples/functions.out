@@ -1,3 +1,6 @@
 [ 2, 3, 4 ] [ 0, 1, 2 ] [ 2, 4, 6 ] [ 0.5, 1, 1.5 ] [ 1, 4, 9 ]
 (1) (2) (3)
 (8) (7)
+foobarbaz
+number,null,string,array,object,nan,regex,undefined,function
+1,foo,1,2,3,[object Object],NaN,/foo/
