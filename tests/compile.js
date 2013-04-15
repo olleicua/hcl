@@ -61,6 +61,8 @@ var tests = [
    'Error: `foo_bar_baz+` is not a valid JavaScript identifier'],
   [eval_test('{+ 1}'),
    { '+': 1 }],
+  [eval_test('(begin (set _!?$%&@#|~*+-=\/<>^ { _!?$%&@#|~*+-=\/<>^ 10 } ) (get _!?$%&@#|~*+-=\/<>^ "_!?$%&@#|~*+-=\/<>^"))'),
+   10],
   [eval_test('(begin (set foo { x_x 1 "y_y" 2 } ) (+ (get foo "x_x") foo.y_y))'),
    3],
   [eval_test('(begin (set foo { } ) (set foo "y_y" 1) (set foo.x_x 1) (set+ foo.x_x 1) (+ (get foo "x_x") foo.y_y))'),
