@@ -2256,18 +2256,23 @@ Takes 1 argument and returns its size.
 
 Takes a path to a file and runs the hcl compiler on that file.
 Returns the path to the compiled JavaScript file.  This is useful for
-dependency management.
+dependency management.  It is worth noting that the Node.js module
+system allows for cyclic dependencies.  The behavior of `require` in
+the cyclic case is document at
+(http://nodejs.org/api/modules.html#modules_cycles)[http://nodejs.org/api/modules.html#modules_cycles].
+`compile` makes sure to only recompile a given file at most once per
+compilation to allow for these cyclic dependencies.
 
 **Hot Cocoa Lisp**
 
 ```lisp
-(compile "foo.hcl")
+(require (compile "foo.hcl"))
 ```
 
 **JavaScript**
 
 ```javascript
-"foo.js" // guaranteed up to date
+require("foo.js") // guaranteed up to date
 ```
 
 ### from-js
