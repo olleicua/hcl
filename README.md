@@ -52,7 +52,7 @@ Once installed a file can be compiled and run using `hcl -n`:
     (console.log "Hello World!")
     
     $ hcl -n hello.hcl
-    Hello World
+    Hello World!
 
 There is also a REPL:
 
@@ -114,7 +114,7 @@ baz.three = 3;
 baz["four"] = 4;
 ```
 
-It should be noted that unike Lisp, words in places besides the
+It should be noted that unlike Lisp, words in places besides the
 beginning of an S-expression are not symbols that can be manipulated
 as values, evaluated, or quoted to prevent evaluation.  Rather they
 are simply identifiers and they work exactly as they would in
@@ -235,7 +235,7 @@ alert("Goodbye");
 (function() { for (var x = 1; x < 100; x *= 2) { console.log(x); }}).call(this);
 ```
 
-The `set*` above is equivalent to the JavaScript `*=` operater.  There
+The `set*` above is equivalent to the JavaScript `*=` operator.  There
 are similar constructs for other arithmetic operators including
 `set+`, `set-`, and `set/`.
 
@@ -319,8 +319,8 @@ Underscore
 ----
 
 The `-u` flag makes Underscore.js 1.4.3 available at the top level.
-Each property of the the `_` object added as a top level function.
-For example:
+Each property of the `_` object added as a top level function. For
+example:
 
 ```lisp
 (def _ (require "underscore"))
@@ -379,8 +379,8 @@ the following characters:
 Identifiers may not begin with digits or be interpretable as a
 number.  For example `-1` will be parsed as a number and not an
 identifier.  Identifiers with characters that aren't normally allowed
-in JavaScript in the are represented by replacing all occurences of
-symbols not normally allowed in JavaScript identifiers with underscore
+in JavaScript are represented by replacing all occurrences of symbols
+not normally allowed in JavaScript identifiers with underscore
 delimited place-holders, for example `a/b` becomes `a_slash_b`.  To
 prevent accidental overlap `_` is replaced with `__`.  This creates an
 inconvenience in the case that global variables from external
@@ -496,7 +496,7 @@ Functions marked with _**_ can be accessed by their names within the
 language.  For example:
 
 ```lisp
-;; this should be compiled with the -u flag to unclude map from underscore
+;; this should be compiled with the -u flag to include map from underscore
 (map [ 1 2 3 ] +1) ; [ 2 3 4 ]
 ```
 
@@ -1393,8 +1393,8 @@ Synonyms: `bit-shift-left`
 
     (<< number bits)
 
-Takes 2 arguments.  Bit-shifts the the number to the left by the the
-specified number of bits.
+Takes 2 arguments.  Bit-shifts the number to the left by the specified
+number of bits.
 
 **Hot Cocoa Lisp**
 
@@ -1416,8 +1416,8 @@ Synonyms: `bit-shift-right`
 
     (>> number bits)
 
-Takes 2 arguments.  Bit-shifts the the number to the left by the the
-specified number of bits.
+Takes 2 arguments.  Bit-shifts the number to the left by the specified
+number of bits.
 
 **Hot Cocoa Lisp**
 
@@ -1716,13 +1716,13 @@ If 2 arguments are given:
 
     (set l_value modulus)
 
-Does modular aritmetic to the l_value and returns the new value.
+Does modular arithmetic to the l_value and returns the new value.
 
 If 3 arguments are given:
 
     (set object key modulus)
 
-Does modulus aritmetic to the value associated with the specified key
+Does modulus arithmetic to the value associated with the specified key
 in the object and returns the new value.
 
 **Hot Cocoa Lisp**
@@ -2212,7 +2212,7 @@ special characters in the expression.
      (replace subject search replace)
 
 Takes 3 strings.  Returns a copy of the first with all instances of
-the second relaced with the third.
+the second replaced with the third.
 
 **Hot Cocoa Lisp**
 
