@@ -520,6 +520,8 @@ Takes 0 arguments and returns `undefined`.
 var bogus_hyphen_function = (function() { return undefined; });
 ```
 
+* * *
+
 ### .
 
 _*_
@@ -539,6 +541,8 @@ Takes 2 or more arguments and does chained object access.
 ```javascript
 object.key1.key2;
 ```
+
+* * *
 
 ### get
 
@@ -562,6 +566,8 @@ Takes 2 arguments and does object or array access.
 object[key]
 ```
 
+* * *
+
 ### list
 
 Synonyms: `array`
@@ -581,6 +587,8 @@ Takes 0 or more arguments and creates an array literal.
 ```javascript
 [1, 2, 3, 4]
 ```
+
+* * *
 
 ### object
 
@@ -604,6 +612,8 @@ compiled and interpreted as a value.
 ```javascript
 { "x": 1, "y": 2, "z": 3 }
 ```
+
+* * *
 
 ### inherit
 
@@ -632,6 +642,8 @@ var bar = Object.create(foo);
 bar["a"] ; 1
 ```
 
+* * *
+
 ### if
 
 _**_
@@ -652,6 +664,8 @@ evaluates to true. Otherwise evaluates and returns the third.
 ```javascript
 ((1 === number) ? "one" : "not one")
 ```
+
+* * *
 
 ### begin
 
@@ -674,6 +688,8 @@ the last.
 (condition() ? (function() { thing1(); return thing2(); }).call(this) : (function() { thing3(); return thing4(); }).call(this)
 ```
 
+* * *
+
 ### when
 
      (when condition statements...)
@@ -695,6 +711,8 @@ statement evaluated.
 ```javascript
 (output_hyphen_requested() && (function() { console.log(things); return document.write(things); }).call(this))
 ```
+
+* * *
 
 ### cond
 
@@ -720,6 +738,8 @@ first result whose condition returns true and `undefined` if none do.
 ((Object.prototype.toString.call(x) === "[object Array]") ? x.join(" ") : (x !== null && typeof(x) === "object") ? "[OBJECT]" : true ? x : undefined)
 ```
 
+* * *
+
 ### while
 
      (while condition statements...)
@@ -741,6 +761,8 @@ repeatedly as long as the first evaluates to true.  Returns `undefined`.
 var i = 10;
 (function() {while (i--) { alert(i); }}).call(this);
 ```
+
+* * *
 
 ### for
 
@@ -785,6 +807,8 @@ Returns `undefined`.
 (function() {for (var x = 1; ((x < 20)); (x *= 2)) {  alert(x); }}).call(this);
 ```
 
+* * *
+
 ### times
 
 _*_
@@ -807,6 +831,8 @@ to that integer.  Returns `undefined`.
 (function() {for (__ = 0; __ < 10; __++) { process.stdout.write(" "); }}).call(this);
 ```
 
+* * *
+
 ### error
 
 Synonyms: `throw`
@@ -826,6 +852,8 @@ Takes 1 argument. Throws a new error with the specified message.
 ```javascript
 (function() {throw new Error("This isn't meant to happen");}).call(this);
 ```
+
+* * *
 
 ### attempt
 
@@ -897,6 +925,8 @@ try {
 
 Returns `undefined`.
 
+* * *
+
 ### +
 
 _**_
@@ -922,6 +952,8 @@ them in order.
 ("foo" + "bar" + "baz") // "foobarbaz"
 ```
 
+* * *
+
 ### +1
 
 _**_
@@ -941,6 +973,8 @@ Takes 1 argument.  Adds 1 to the summand.
 ```javascript
 (7 + 1) // 8
 ```
+
+* * *
 
 ### -
 
@@ -976,6 +1010,8 @@ Subtracts each of the subtrahends from the minuend.
 (7 - 2 - 3) // 2
 ```
 
+* * *
+
 ### --1
 
 _**_
@@ -996,6 +1032,8 @@ Takes 1 argument.  Subtracts 1 from the minuend.
 (8 - 1) // 7
 ```
 
+* * *
+
 ### *
 
 _**_
@@ -1015,6 +1053,8 @@ Takes 2 or more arguments and multiplies them together.
 ```javascript
 (2 * 3 * 4) // 24
 ```
+
+* * *
 
 ### *2
 
@@ -1038,6 +1078,8 @@ Takes 1 argument.  Multiplies the factor by 2.
 (5 * 2) // 10
 ```
 
+* * *
+
 ### /
 
 _**_
@@ -1059,6 +1101,8 @@ Takes 2 or more arguments.  Divides the dividend by each of the divisors.
 (10 / 2) // 5
 (100 / 2 / 5) // 10
 ```
+
+* * *
 
 ### /2
 
@@ -1082,6 +1126,8 @@ Takes 1 argument.  Divides the dividend by 2.
 (8 / 2) // 4
 ```
 
+* * *
+
 ### ^
 
 _**_
@@ -1101,6 +1147,8 @@ Takes 2 arguments.  Returns the base to the power of the exponent.
 ```javascript
 Math.pow(2, 5) // 32
 ```
+
+* * *
 
 ### ^2
 
@@ -1124,6 +1172,8 @@ Takes 1 argument.  Squares the base.
 (9 * 9) // 81
 ```
 
+* * *
+
 ### sqrt
 
 _**_
@@ -1143,6 +1193,8 @@ Takes 1 argument.  Returns the square root of the number.
 ```javascript
 Math.sqrt(100) // 10
 ```
+
+* * *
 
 ### %
 
@@ -1169,6 +1221,8 @@ replaced by the remainder of number / modulus.
 (1010 % 100 % 7) // 3
 ```
 
+* * *
+
 ### <
 
 _**_
@@ -1193,6 +1247,8 @@ than the previous.
 (2 < 3)
 ((10 < 15) && (15 < 20) && (20 < 25))
 ```
+
+* * *
 
 ### >
 
@@ -1219,6 +1275,8 @@ than the previous.
 ((25 > 20) && (20 > 15) && (15 > 10))
 ```
 
+* * *
+
 ### <=
 
 _**_
@@ -1243,6 +1301,8 @@ than or equal to the previous.
 (2 <= 3)
 ((15 <= 15) && (15 <= 20) && (20 <= 25))
 ```
+
+* * *
 
 ### >=
 
@@ -1269,6 +1329,8 @@ than or equal to the previous.
 ((20 >= 20) && (20 >= 15) && (15 >= 10))
 ```
 
+* * *
+
 ### =
 
 _**_
@@ -1293,6 +1355,8 @@ equal.
 (2 === 2)
 ((20 === 20) && (20 === 20))
 ```
+
+* * *
 
 ### !=
 
@@ -1319,6 +1383,8 @@ arguments are equal.
 ((20 !== 21) && (21 !== 22))
 ```
 
+* * *
+
 ### =0
 
 _**_
@@ -1340,6 +1406,8 @@ Takes 1 argument.  Returns true if the number is 0.
 ```javascript
 (0 === 0)
 ```
+
+* * *
 
 ### &
 
@@ -1363,6 +1431,8 @@ Takes 2 arguments and performs a bitwise and between them.
 (6 & 3) // 7
 ```
 
+* * *
+
 ### |
 
 Synonyms: `bit-or`
@@ -1384,6 +1454,8 @@ Takes 2 arguments and performs a bitwise or between them.
 ```javascript
 (6 | 3) // 2
 ```
+
+* * *
 
 ### <<
 
@@ -1408,6 +1480,8 @@ number of bits.
 (1 << 2) // 4
 ```
 
+* * *
+
 ### >>
 
 _**_
@@ -1431,6 +1505,8 @@ number of bits.
 (4 >> 2) // 1
 ```
 
+* * *
+
 ### not
 
 _**_
@@ -1452,6 +1528,8 @@ Takes 1 argument and returns the boolean opposite of it.
 ```javascript
 (! true) ; false
 ```
+
+* * *
 
 ### and
 
@@ -1476,6 +1554,8 @@ true.
 (true && true && true)
 ```
 
+* * *
+
 ### or
 
 _**_
@@ -1499,6 +1579,8 @@ true.
 (false || false || true)
 ```
 
+* * *
+
 ### xor
 
 _**_
@@ -1520,6 +1602,8 @@ true.
 ((true || false) && (! (true && false)))
 ```
 
+* * *
+
 ### def
 
 Synonyms: `var`
@@ -1540,6 +1624,8 @@ with the specified name.  Assign the value to it if one is specified.
 ```javascript
 var foo = 1;
 ```
+
+* * *
 
 ### set
 
@@ -1574,6 +1660,8 @@ returns the value.
 (bar[baz] = 12)
 ```
 
+* * *
+
 ### set+
 
      (set+ variable [key] summand)
@@ -1606,6 +1694,8 @@ object and returns the new value.
 (foo += 10)
 (bar[baz] += 12)
 ```
+
+* * *
 
 ### set-
 
@@ -1640,6 +1730,8 @@ key in the object and returns the new value.
 (bar[baz] -= 12)
 ```
 
+* * *
+
 ### set*
 
      (set* arg1 arg2...)
@@ -1672,6 +1764,8 @@ by the factor and returns the new value.
 (foo *= 10)
 (bar[baz] *= 12)
 ```
+
+* * *
 
 ### set/
 
@@ -1706,6 +1800,8 @@ by the divisor and returns the new value.
 (bar[baz] /= 12)
 ```
 
+* * *
+
 ### set%
 
      (set% arg1 arg2...)
@@ -1739,6 +1835,8 @@ in the object and returns the new value.
 (bar[baz] %= 12)
 ```
 
+* * *
+
 ### ++
 
 Synonyms: `inc`
@@ -1759,6 +1857,8 @@ Takes 1 argument and increments it.
 number++
 ```
 
+* * *
+
 ### --
 
 Synonyms: `dec`
@@ -1778,6 +1878,8 @@ Takes 1 argument and decrements it.
 ```javascript
 number--
 ```
+
+* * *
 
 ### let
 
@@ -1802,6 +1904,8 @@ evaluated in that scope.  The result of the last statement is returned.
 ```javascript
 (function(a, b) { return (a + b); }).call(this, 1, 2)
 ```
+
+* * *
 
 ### #
 
@@ -1832,6 +1936,8 @@ an array.
 (function() {var args = [].slice.call(arguments, 0);  return map(args, function(x){return x+1;}); })
 ```
 
+* * *
+
 ### nil?
 
 _**_
@@ -1851,6 +1957,8 @@ Takes 1 argument and returns true if it is `null` or `undefined`.
 ```javascript
 (foo === null || foo === undefined)
 ```
+
+* * *
 
 ### boolean?
 
@@ -1872,6 +1980,8 @@ Takes 1 argument and returns true if it is `true` or `false`.
 (typeof(foo) === "boolean")
 ```
 
+* * *
+
 ### number?
 
 _**_
@@ -1892,6 +2002,8 @@ Takes 1 argument and returns true if it is a number.
 (typeof(foo) === "number" && (! isNaN(foo)))
 ```
 
+* * *
+
 ### string?
 
 _**_
@@ -1911,6 +2023,8 @@ Takes 1 argument and returns true if it is a string.
 ```javascript
 (typeof(foo) === "string")
 ```
+
+* * *
 
 ### list?
 
@@ -1934,6 +2048,8 @@ Takes 1 argument and returns true if it is an array.
 (Object.prototype.toString.call(foo) === "[object Array]")
 ```
 
+* * *
+
 ### object?
 
 _**_
@@ -1953,6 +2069,8 @@ Takes 1 argument and returns true if it is an object.
 ```javascript
 (Object.prototype.toString.call(foo) === "[object Object]")
 ```
+
+* * *
 
 ### re?
 
@@ -1976,6 +2094,8 @@ Takes 1 argument and returns true if it is a regular expression.
 (Object.prototype.toString.call(foo) === "[object Regexp]")
 ```
 
+* * *
+
 ### function?
 
 _**_
@@ -1998,6 +2118,8 @@ Takes 1 argument and returns true if it is a function.
 (typeof(foo) === "function")
 ```
 
+* * *
+
 ### empty?
 
 _**_
@@ -2017,6 +2139,8 @@ Takes 1 argument and returns true if it is `null` or has a length of 0.
 ```javascript
 (foo === null || (foo).length === 0)
 ```
+
+* * *
 
 ### integer?
 
@@ -2038,6 +2162,8 @@ Takes 1 argument and returns true if it is an integer.
 (typeof(foo) === "number" && foo % 1 === 0)
 ```
 
+* * *
+
 ### even?
 
 _**_
@@ -2057,6 +2183,8 @@ Takes 1 argument and returns true if it is divisible by 2.
 ```javascript
 (foo % 2 === 0)
 ```
+
+* * *
 
 ### odd?
 
@@ -2079,6 +2207,8 @@ divisible by 2.
 (foo % 2 === 1)
 ```
 
+* * *
+
 ### contains?
 
 _**_
@@ -2098,6 +2228,8 @@ Takes 2 arguments.  Returns true if the array contains the value.
 ```javascript
 ([1, 2, 3].indexOf(2) !== -1)
 ```
+
+* * *
 
 ### type
 
@@ -2123,6 +2255,8 @@ and function.
 (function(_value_, _signature_) { return ((_signature_ === "[object Array]") ? "array" : (_signature_ === "[object RegExp]") ? "regex" : (_value_ === null) ? "null" : (_value_ !== _value_) ? "nan" : typeof(_value_)); }).call(this, foo, Object.prototype.toString.call(foo))
 ```
 
+* * *
+
 ### string
 
 _**_
@@ -2142,6 +2276,8 @@ Takes 1 argument and converts it to a string.
 ```javascript
 (10).toString() // "10"
 ```
+
+* * *
 
 ### number
 
@@ -2163,6 +2299,8 @@ Takes 1 argument and converts it to a number.
 parseFloat("10") // 10
 ```
 
+* * *
+
 ### integer
 
 _**_
@@ -2182,6 +2320,8 @@ Takes 1 argument and converts it to an integer.
 ```javascript
 Math.floor(parseFloat("10.1"))
 ```
+
+* * *
 
 ### re
 
@@ -2207,6 +2347,8 @@ special characters in the expression.
 (new RegExp("foo\\b"))
 ```
 
+* * *
+
 ### replace
 
      (replace subject search replace)
@@ -2227,6 +2369,8 @@ the second replaced with the third.
 "1.800.555.5555".replace(".", "-") // "1-800.555.5555"
 "1.800.555.5555".replace((new RegExp(".", "g")), "-") // "1-800-555-5555"
 ```
+
+* * *
 
 ### size
 
@@ -2249,6 +2393,8 @@ Takes 1 argument and returns its size.
 ```javascript
 [1, 2, 3].length // 3
 ```
+
+* * *
 
 ### compile
 
@@ -2275,6 +2421,8 @@ compilation to allow for these cyclic dependencies.
 require("foo.js") // guaranteed up to date
 ```
 
+* * *
+
 ### from-js
 
 _*_
@@ -2296,6 +2444,7 @@ Throws an error if the identifier isn't a valid Javascript identifier.
 foo_bar
 ```
 
+* * *
 * * *
 #### References
 1. [http://www.crockford.com/javascript/javascript.html](http://www.crockford.com/javascript/javascript.html)
