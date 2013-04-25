@@ -497,7 +497,8 @@ language.  For example:
 
 ```lisp
 ;; this should be compiled with the -u flag to include map from underscore
-(map [ 1 2 3 ] +1) ; [ 2 3 4 ]```
+(map [ 1 2 3 ] +1) ; [ 2 3 4 ]
+```
 
 ### nop
 
