@@ -99,6 +99,8 @@ var tests = [
    '1 2 3 [4] 5 [6]'],
   [eval_test('(and (= (+1 7) (*2 4)) (< (/2 10) (--1 8)))'),
    true],
+  [eval_test('(= (<< 7 9) (* 7 (^ 2 9)))'),
+   true],
   [eval_test('(cat (type []) (type {}) (type (# () (nop))) (type "") (type 7))'),
    'arrayobjectfunctionstringnumber'],
   [eval_test('(cat (type (re "foo")) (type null) (type undefined) (type NaN))'),
@@ -122,7 +124,9 @@ var tests = [
   [eval_test('(begin (set factorial (# (n) (if (= n 1) 1 (* n (factorial (--1 n)))))) (factorial 6))'),
    720],
   [eval_test('(begin (set choose (# (n m) (cond ((or (< m 0) (> m n)) 0) ((= 0 n) 1) (true (+ (choose (--1 n) (--1 m)) (choose (--1 n) m)))))) (choose 5 2))'),
-   10]
+   10],
+  [eval_test('(replace "bar" "r" "z")'),
+   'baz'],
 ];
 
 require('hot-cocoa').test(tests);

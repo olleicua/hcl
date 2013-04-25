@@ -1,6 +1,6 @@
 {
   "name": "hot-cocoa-lisp",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Sam Auciello <info@samauciello.com>",
   "description": "A Lisp-style language that compiles to JavaScript",
   "repository": {

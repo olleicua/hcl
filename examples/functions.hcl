@@ -9,3 +9,5 @@
 (console.log (reduce [ "foo" "bar" "baz" ] cat))
 (console.log ((map [1 null "foo" [1 2 3] {} NaN (re "foo") undefined nop] type).join ","))
 (console.log ((map [1 "foo" [1 2 3] {} NaN (re "foo")] string).join ","))
+(console.log ((# (f) (f "1 2 3 4 5" (re "\d" "g") "x")) replace))
+(console.log ((# (f) (f [ ])) size))

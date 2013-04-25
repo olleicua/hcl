@@ -497,8 +497,7 @@ language.  For example:
 
 ```lisp
 ;; this should be compiled with the -u flag to include map from underscore
-(map [ 1 2 3 ] +1) ; [ 2 3 4 ]
-```
+(map [ 1 2 3 ] +1) ; [ 2 3 4 ]```
 
 ### nop
 
@@ -2351,6 +2350,8 @@ special characters in the expression.
 
 ### replace
 
+_**_
+
      (replace subject search replace)
 
 Takes 3 strings.  Returns a copy of the first with all instances of
@@ -2368,6 +2369,38 @@ the second replaced with the third.
 ```javascript
 "1.800.555.5555".replace(".", "-") // "1-800.555.5555"
 "1.800.555.5555".replace((new RegExp(".", "g")), "-") // "1-800-555-5555"
+```
+
+* * *
+
+### format
+
+_**_
+
+     (format format-string replacements)
+
+Takes a string and either a list or an object.  Replaces each instance
+of `~~` in the format string with the value in the replacements list
+corresponding to the index of that `~~` (for example the 0th `~~` will
+be replaced by the 0th element of the replacements list).  Replaces
+each instance `~foo~` in the format string with the value in the
+replacements object associated with the key `"foo"` (where foo could
+be any string that contains no tildes.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(format "(~~) (~~) (~~)" [ 1 7 19 ] ) ; "(1) (7) (19)"
+(format " *~stars~* _~underbars~_ " { stars "foo"
+                                      underbars "bar" } ) ; " *foo* _bar_ "
+```
+
+**JavaScript**
+
+```javascript
+var format = function(f,v){var i=0;return f.replace(/~([a-zA-Z0-9_]*)~/g,function(_,k){if(k===''){k=i;i++;}if(v[k]===undefined){return'';}return v[k];})};
+format("(~~) (~~) (~~)", [1, 7, 19]); // "(1) (7) (19)"
+format(" *~stars~* _~underbars~_ ", { "stars": "foo", "underbars": "bar" }); // " *foo* _bar_ "
 ```
 
 * * *
