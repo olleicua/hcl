@@ -7,6 +7,9 @@ Options:
 -h, --help            Display this help message
 -n, --run-with-node   Immediately execute the program using Node.js
 -b, --browser         Optimize the code for use in a web browser
+                       it is recommended for reliability reasons that this
+                       always be used for applications meant to run in a
+                       browser.
 -v, --version         Display the version number
 -d, --debug           Run the REPL in debug mode to see the
                        intermediate compiled JavaScript source.
