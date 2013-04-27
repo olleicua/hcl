@@ -29,6 +29,8 @@ var tests = [
    'console["log"]("hello");'],
   [compile_test('(console.log (if true "yes" "no"))'),
    'console["log"]((true ? "yes" : "no"));'],
+  [eval_test('(+ 2 1/2)'),
+   2.5],
   [eval_test('(= 1 2 2)'),
    false],
   [eval_test('(= false false false)'),
