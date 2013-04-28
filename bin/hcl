@@ -11,6 +11,7 @@ var fs = require('fs');
 var repl = require('repl');
 var format = require('hot-cocoa').format;
 
+
 if (args.help) {
   process.stdout.write(
     fs.readFileSync(
@@ -83,12 +84,18 @@ if (args._[0]) {
       }
     },
     writer: function(value) {
+      
+      // a regular expression that matches commas and colons that aren't in
+      // strings based on the one found here:
+      // http://stackoverflow.com/questions/1191397/regex-to-match-values-not-surrounded-by-another-char
+      var punctuation = /[,:](?=(?:(?:(?:[^'\\]|\\.)*'){2})*(?:[^'\\]|\\.)*$)/g;
+      
       return require('util')
         .inspect(value,
                  false, // show hidden
                  null, // depth
                  true) // colors
-        .replace(/[:,]/g, '')
+        .replace(punctuation, '')
         .replace(/{}/g, '{ }')
         .replace(/\[\]/g, '[ ]')
         .replace(/'/g, '"');
