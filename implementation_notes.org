@@ -1,0 +1,168 @@
+
+I built the Hot Cocoa Lisp language on top of Hot Cocoa.  Its project
+is hosted at https://github.com/olleicua/hcl and it can be installed
+using npm with:
+
+: $ npm -g install hot-cocoa-lisp
+
+the documentation for programming in Hot Cocoa Lisp can be found in the README.md file.
+What follows is the documentation and discussion of my implementation
+of the language.
+
+* Generating abstract syntax trees
+
+The first step in compiling Hot Cocoa Lisp is generating an abstract
+syntax tree.  The abstract syntax tree is a data structure that mimics
+the structure of the Lisp syntax.  In a language like Scheme this is
+what would result if the entire program were quoted.  The abstract
+syntax tree is generated entirely by the tools in Hot Cocoa.  First, the text is
+scanned and tokenized using the token type list defined in
+lib/tokenTypes.js.  It is worth noting that tokens like -1,
+which could be interpreted as a number or an identifier, end up being
+numbers for the simple reason that the number token type is defined
+earlier in the type list.  Next, the tokens are arranged into a parse tree
+using the grammar in lib/parseGrammer.json to give structure to
+the code and guarantee that there are no syntax errors.  Finally, the
+parse tree is converted into an abstract syntax tree using the node
+transformations defined in lib/attributeGrammer.js.  This final stage
+also makes use of lib/types.js to build wrapped abstract syntax nodes
+that, among other things, know how to print themselves.  The result of
+the whole process is that some text like
+
+: (console.log "Hello World!")
+
+is converted into a JavaScript object somewhat like
+
+: [
+:   [
+:     { type: 'identifier', value: '.' },
+:     { type: 'identifier', value: 'console' },
+:     { type: 'identifier', value: 'log }
+:   ],
+:   { type: 'string' value: '"Hello World!"' }
+: ]
+
+It should be noted that because a program can be made up of multiple
+top-level Lisp expressions, the first step of compilation actually
+produces a list of abstract syntax trees as opposed to a single
+tree.
+
+* Generating JavaScript code from abstract syntax trees
+
+After the abstract syntax tree is generated, it can be converted to
+JavaScript code using a recursive algorithm in
+lib/compile.js to traverse the tree and do the following at each node:
+
+- If the node is a list expression, check to see whether its first
+  element is in the function map in lib/functions.js.
+  
+- If the first element is not in the function map, compile all of the
+  other elements and output a JavaScript function call in the form:
+  
+  : element_1(element_2_compiled, element_3_compiled, ...)
+  
+- If the first element is in the function map, check to see whether
+  that function has the lazy property set to true.  If it does, pass
+  the remaining elements to the function to determine the JavaScript
+  that should be generated.  If it doesn't, first compile each of the
+  remaining elements, then pass them to the function to determine the
+  JavaScript that should be generated.
+  
+- If the node is not a list expression, simply output its value.  If
+  it is an identifier, run it through the mangling function first to
+  escape any characters not normally allowed in JavaScript
+  identifiers. 
+
+Some built-in functions can be accessed as primitives in the language
+without being called.  For example:
+
+: (map [ 1 2 3 ] *2) ; [ 2 4 6 ]
+
+This feature is implemented using the mapping between function names and
+implementations in lib/builtins.js.  Any function names that are
+mentioned in a position other than the beginning of a list expression
+are defined at the top of the compiled JavaScript, so the above Hot
+Cocoa Lisp Program would compile to
+
+: var _times_2 = function(x){return x*2;};
+: map([1, 2, 3], _times_2); // [2, 4, 6]
+
+* Dependency management
+
+The implementation also contains some tools for dependency management.
+A problem can arise in developing a Node.js project with Hot Cocoa
+Lisp components in separate files linked using require and the
+Node.js module system.  If changes have been made to multiple files
+the command to compile and re-run the program can get prohibitively
+long, for example: 
+
+: $ hcl dependency1.hcl && hcl dependency2.hcl && hcl -n main_program.hcl
+
+As dependency chains get longer and more complex, the developer may
+need to either keep track of which dependencies have changed or have
+an exceedingly long and cumbersome compile command.  To alleviate this
+problem somewhat, I have created a compile function in Hot Cocoa Lisp that
+takes a path to a .hcl file, compiles that file to a .js file and
+returns the path to the .js file.  For example:
+
+: (var my-cool-library (require (compile "./path/to/library.hcl")))
+
+The implementation is complicated somewhat by the fact that Node's
+module system allows for cyclic dependencies.  This is dealt 
+with using the module defined in lib/file2js.js which keeps track of
+every .hcl file that has been compiled in this compilation and does
+the compilation only if that file has yet to be compiled.
+
+* External JavaScript libraries
+
+The project makes use of a few external JavaScript libraries.  The
+language's REPL (read-evaluate-print loop, sometimes also called an
+interactive prompt) is powered by Node.js's built-in REPL library,
+which provides the necessary hooks to override the evaluate part of
+the loop so that input is interpreted as Hot Cocoa Lisp instead of
+JavaScript.  It also provides
+an output hook that allowed me to remove commas and colons from the
+returned values so that output arrays and objects match the Hot Cocoa
+Lisp convention of whitespace delimiters.  I used the
+optimist Node.js library to parse command line options
+and the Uglify.js library to provide an automatic
+minification option.  I used underscore.js
+extensively throughout my implementation to facilitate a functional
+style, and I also provided a mechanism for having underscore 1.4.3
+automatically exposed to Hot Cocoa Lisp.  When the -u flag is
+supplied, the minified version of underscore 1.4.3 in
+etc/underscore.js that has been slightly modified to avoid a
+particular interaction with Node.js's module system is included at the
+top of the compiled JavaScript and a bit of code is added to expose
+all of the methods in underscore at the top level so that the
+functional tools from underscore can be used without referencing 
+underscore.  For example, the -u flag allows:
+
+: (filter [ 0 1 2 0 3 ] zero?) ; [ 0 0 ]
+
+instead of needing
+
+: (var _ (require "underscore"))
+: (_.filter [ 0 1 2 0 3 ] zero?) ; [ 0 0 ]
+
+* Testing
+
+I used the Hot Cocoa test system to make sure everything was still
+working while I added features and changed code.  My tests fall into
+three categories:
+
+- The parse tests in tests/text2ast.js and tests/text2astRD.js make
+  sure that my parser is generating abstract syntax trees the way I
+  expect it to using both parsing algorithms.
+
+- The compile tests in tests/compile.js check that a variety of short
+  sample code fragments compile and run properly.  This is more like a
+  sanity check to make sure that the language is still doing what it
+  should.
+
+- tests/full.js recompiles and runs all of the .hcl files in the
+  examples directory and compares their output to the associated .out
+  file in the examples directory.
+
+Between tests/compile.js and tests/full.js, all of the basic features
+of the language are tested.
