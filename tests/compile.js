@@ -20,8 +20,6 @@ var eval_test = function(source) {
   };
 }
 
-//console.log(hcl.analyze(hcl.parse(hcl.scan('(replace "1 2 3 (4) 5 (6)" /\((\d)\)/ "[$1]")')))[0])
-
 var tests = [
   [compile_test('(if 1)'),
    'Error: Wrong number of arguments for `if`: 1 for 3 at position 1:0'],
@@ -75,6 +73,8 @@ var tests = [
    3],
   [eval_test('(begin (set foo { x 2 } ) (set+ foo "x" 1) (set* foo "x" 4) (set- foo "x" 3) (set/ foo "x" 3) (get foo "x"))'),
    3],
+  [eval_test('(begin (set foo { x 2 } ) (set<< foo "x" 2) (set>> foo "x" 1) (set| foo "x" 2) (set& foo "x" 4) (get foo "x"))'),
+   4],
   [eval_test('(odd? 21)'),
    true],
   [eval_test('(empty? [])'),
@@ -103,6 +103,8 @@ var tests = [
    true],
   [eval_test('(= (<< 7 9) (* 7 (^ 2 9)))'),
    true],
+  [eval_test('(bit-xor 5 15)'),
+   10],
   [eval_test('(cat (type []) (type {}) (type (# () (nop))) (type "") (type 7))'),
    'arrayobjectfunctionstringnumber'],
   [eval_test('(cat (type (re "foo")) (type null) (type undefined) (type NaN))'),

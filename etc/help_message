@@ -1,4 +1,4 @@
-Usage: hcl [-hnbvdu] [file]
+Usage: hcl [-hnbvdum] [file]
 
 If a file is specified it will be compiled to a .js file
  otherwise the REPL will be opened.

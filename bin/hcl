@@ -11,7 +11,7 @@ var fs = require('fs');
 var repl = require('repl');
 var format = require('hot-cocoa').format;
 
-
+// check for -h flag
 if (args.help) {
   process.stdout.write(
     fs.readFileSync(
@@ -22,6 +22,7 @@ if (args.help) {
   process.exit(0);
 }
 
+// check for -v flag
 if (args.version) {
   console.log(format('Hot Cocoa Lisp version ~~', [
     require('../package.json').version]));
@@ -29,10 +30,14 @@ if (args.version) {
 }
 
 if (args._[0]) {
+  
+  // a file was secified, compile it to a .js
   file2js(args._[0], function() {
+    
+    // check for -n flag
     if (args.n) {
       exec(
-        format('node ~~', [args._[0].replace(/\.hcl$/, '.js')]),
+        format('node ~~', [args._[0].replace(/(\.[^.\/]+$)|$/, '.js')]),
         function(error, stdout, stderr) {
           console.log(stdout, stderr);
         }
@@ -40,6 +45,10 @@ if (args._[0]) {
     }
   });
 } else {
+  
+  // REPL mode
+  
+  // check for -u flag
   if (args.u) {
     var underscore_keys = Object.keys(_);
     for (var i = 0; i < underscore_keys.length; i++) {
@@ -48,6 +57,8 @@ if (args._[0]) {
       }
     }
   }
+  
+  // start the REPL
   repl.start({
     prompt: 'hcl> ',
     eval: function(cmd, context, filename, callback) {
