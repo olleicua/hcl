@@ -126,7 +126,7 @@ var tests = [
   [eval_test('(begin (set choose (# (n m) (cond ((or (< m 0) (> m n)) 0) ((= 0 n) 1) (true (+ (choose (--1 n) (--1 m)) (choose (--1 n) m)))))) (choose 5 2))'),
    10],
   [eval_test('(replace "bar" "r" "z")'),
-   'baz'],
+   'baz']
 ];
 
 require('hot-cocoa').test(tests);
