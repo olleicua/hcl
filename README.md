@@ -361,8 +361,10 @@ Number literals follow the JSON
 specification<sup>[2](#references)</sup> for numbers.  That is to say
 anything that matches the regular expression
 `-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][-+]?[0-9]+)?` is parsed as a
-number.  Additionally `Infinity` and `-Infinity` are interpreted as
-numbers.
+number  `Infinity` and `-Infinity` are also interpreted as
+numbers.  Additionally, fractions of the form `x/y` where `x` and `y`
+are sequences of digits that don't begin with `0` are interpreted as
+numbers and wrapped in parentheses to elliminate order of operations issues.
 
 ### string literals
 
