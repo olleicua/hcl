@@ -364,7 +364,20 @@ anything that matches the regular expression
 number  `Infinity` and `-Infinity` are also interpreted as
 numbers.  Additionally, fractions of the form `x/y` where `x` and `y`
 are sequences of digits that don't begin with `0` are interpreted as
-numbers and wrapped in parentheses to elliminate order of operations issues.
+numbers and wrapped in parentheses to elliminate order of operations
+issues.  For example:
+
+**Hot Cocoa Lisp**
+
+```lisp
+(+ 1 1/2) ; 1.5
+```
+
+**Compiled JavaScript**
+
+```javascript
+(1 + (1/2)) // 1.5
+```
 
 ### string literals
 
@@ -2345,6 +2358,29 @@ Throws an error if the identifier isn't a valid Javascript identifier.
 
 ```javascript
 foo_bar
+```
+
+* * *
+
+### require
+
+Synonyms: `load`
+
+    (require path)
+
+Calls the require method.  This exists only to support the `load`
+synonym and to fix a problem with load paths in the repl.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(load "./foo")
+```
+
+**JavaScript**
+
+```javascript
+require("./foo")
 ```
 
 * * *
