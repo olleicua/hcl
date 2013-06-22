@@ -11,3 +11,5 @@
 (console.log ((map [1 "foo" [1 2 3] {} NaN (re "foo")] string).join ","))
 (console.log ((# (f) (f "1 2 3 4 5" (re "\d" "g") "x")) replace))
 (console.log ((# (f) (f [ ])) size))
+(console.log (select [ 1 -2 7 0 -3 9 ] positive?))
+(console.log (select [ 1 -2 7 0 -3 9 ] non-negative?))

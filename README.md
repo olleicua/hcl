@@ -944,6 +944,46 @@ Returns `undefined`.
 
 * * *
 
+### random-float
+
+_**_
+
+Takes 0 arguments and returns a random number between 0 and 1.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(random-float)
+```
+
+**JavaScript**
+
+```javascript
+Math.random();
+```
+
+* * *
+
+### random-integer
+
+_**_
+
+Takes 1 argument and returns a random non negative integer lower than it.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(random-integer 7)
+```
+
+**JavaScript**
+
+```javascript
+parseInt(Math.random() * 7);
+```
+
+* * *
+
 ### +
 
 _**_
@@ -1423,6 +1463,9 @@ Takes 1 argument.  Returns true if the number is 0.
 ```javascript
 (0 === 0)
 ```
+
+`>0` (or `positive?`), `<0` (or `negative?`), `>=0` (or `non-negative?`),
+and `<=0` (or `non-positive?`) work similarly.
 
 * * *
 

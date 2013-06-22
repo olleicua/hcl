@@ -6,3 +6,5 @@ number,null,string,array,object,nan,regex,undefined,function
 1,foo,1,2,3,[object Object],NaN,/foo/
 x x x x x
 0
+[ 1, 7, 9 ]
+[ 1, 7, 0, 9 ]
