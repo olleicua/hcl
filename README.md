@@ -149,6 +149,25 @@ combination of `def` and `#`:
 var factorial = (function(n) { return ((n < 2) ? 1 : factorial(n - 1)) });
 ```
 
+As in JavaScript, it is possible to create recursive anonomous
+functions by giving them a name.  If the first argument to the
+function constructor is an identifier then it is assumed to be in this
+form:
+
+**Hot Cocoa Lisp**
+
+```lisp
+((# factorial (n)
+	(if (< n 2) 1
+		(* n (factorial (- n 1))))) 5) ; 120
+```
+
+**JavaScript**
+
+```javascript
+(function factorial(n) {  return (((n < 2)) ? 1 : (n * factorial((n - 1)))); })(5) // 120
+```
+
 Three basic loops are provided in Hot Cocoa Lisp: `while`, `times`, and
 `for`.
 
@@ -980,6 +999,133 @@ Takes 1 argument and returns a random non negative integer lower than it.
 
 ```javascript
 parseInt(Math.random() * 7);
+```
+
+* * *
+
+### first
+
+_**_
+
+Synonyms: `car`
+
+Takes an array and returns its first element.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(first [1 2 3]) ; 1
+```
+
+**JavaScript**
+
+```javascript
+[1, 2, 3][0] // 1
+```
+
+* * *
+
+### second
+
+_**_
+
+Synonyms: `cadr`
+
+Takes an array and returns its second element.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(second [1 2 3]) ; 2
+```
+
+**JavaScript**
+
+```javascript
+[1, 2, 3][1] // 2
+```
+
+* * *
+
+### last
+
+_**_
+
+Takes an array and returns its last element.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(last [1 2 3]) ; 3
+```
+
+**JavaScript**
+
+```javascript
+[1, 2, 3][[1, 2, 3].length - 1] // 3
+```
+
+* * *
+
+### initial
+
+_**_
+
+Takes an array and returns all but its last element.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(initial [1 2 3]) ; [ 1 2 ]
+```
+
+**JavaScript**
+
+```javascript
+[].slice.call([1, 2, 3], 0, [1, 2, 3].length - 1) // [1, 2]
+```
+
+* * *
+
+### rest
+
+_**_
+
+Synonyms: `cdr`
+
+Takes an array and returns all but its first element.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(rest [1 2 3]) ; [ 2 3 ]
+```
+
+**JavaScript**
+
+```javascript
+[].slice.call([1, 2, 3], 1) // [2, 3]
+```
+
+* * *
+
+### cons
+
+_**_
+
+Takes an object and an array and returns a new array beginning with
+the object and ending with the array
+
+**Hot Cocoa Lisp**
+
+```lisp
+(cons 1 [2 3]) ; [ 1 2 3 ]
+```
+
+**JavaScript**
+
+```javascript
+[1].concat([2, 3]) // [1, 2, 3]
 ```
 
 * * *

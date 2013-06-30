@@ -13,3 +13,4 @@
 (console.log ((# (f) (f [ ])) size))
 (console.log (select [ 1 -2 7 0 -3 9 ] positive?))
 (console.log (select [ 1 -2 7 0 -3 9 ] non-negative?))
+(console.log (map [ [ true 1 2 ] [ false 3 4 ] [ (= 1 1) 5 6 ] ] (# (x) (if.apply this x))))

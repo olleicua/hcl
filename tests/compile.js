@@ -109,6 +109,8 @@ var tests = [
    false],
   [eval_test('(and (number? (random-float)) (integer? (random-integer 10)))'),
    true],
+  [eval_test('(= (first [ 1 ] ) (second [ 0 1 ]) (last [ 3 2 1 ] ))'),
+   true],
   [eval_test('(bit-xor 5 15)'),
    10],
   [eval_test('(cat (type []) (type {}) (type (# () (nop))) (type "") (type 7))'),
@@ -129,12 +131,10 @@ var tests = [
    false],
   [eval_test('(and (number? Infinity) (number? -Infinity) (< -Infinity 0 Infinity) (= Infinity (/ 1 0)))'),
    true],
-  [eval_test('(begin (set fib (# (n) (if (< n 1) 1 (+ (fib (--1 n)) (fib (- n 2)))))) (fib 8))'),
+  [eval_test('((# fib (n) (if (< n 1) 1 (+ (fib (--1 n)) (fib (- n 2))))) 8)'),
    55],
-  [eval_test('(begin (set factorial (# (n) (if (= n 1) 1 (* n (factorial (--1 n)))))) (factorial 6))'),
+  [eval_test('((# factorial (n) (if (= n 1) 1 (* n (factorial (--1 n))))) 6)'),
    720],
-  [eval_test('(begin (set choose (# (n m) (cond ((or (< m 0) (> m n)) 0) ((= 0 n) 1) (true (+ (choose (--1 n) (--1 m)) (choose (--1 n) m)))))) (choose 5 2))'),
-   10],
   [eval_test('(replace "bar" "r" "z")'),
    'baz']
 ];
