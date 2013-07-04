@@ -62,6 +62,12 @@ There is also a REPL:
 
 More instructions can be found using `hcl --help`
 
+FreeCell example
+----
+
+I've created a FreeCell game as an example of a small program in Hot
+Cocoa Lisp.  It can be found at https://github.com/olleicua/FreeCell
+
 Arrays, Objects, and Variables
 ----
 
