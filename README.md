@@ -158,8 +158,8 @@ form:
 
 ```lisp
 ((# factorial (n)
-	(if (< n 2) 1
-		(* n (factorial (- n 1))))) 5) ; 120
+    (if (< n 2) 1
+        (* n (factorial (- n 1))))) 5) ; 120
 ```
 
 **JavaScript**

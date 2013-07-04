@@ -36,12 +36,7 @@ if (args._[0]) {
     
     // check for -n flag
     if (args.n) {
-      exec(
-        format('node ~~', [args._[0].replace(/(\.[^.\/]+$)|$/, '.js')]),
-        function(error, stdout, stderr) {
-          console.log(stdout, stderr);
-        }
-      );
+      require(path.resolve(args._[0].replace(/(\.[^.\/]+$)|$/, '.js')));
     }
   });
 } else {
@@ -71,13 +66,13 @@ if (args._[0]) {
             repl_mode: true,
             omit_annotations: true,
             add_to_outer_scope: function(name, value) {
-              if (args.debug) {
+              if (args.debug && value) {
                 console.log('js (', name, '):', value);
               }
               global[name] = eval('(' + value + ')');
             },
             add_to_scope: function(name, value) {
-              if (args.debug) {
+              if (args.debug && value) {
                 console.log('js (', name, '):', value);
               }
               global[name] = eval('(' + value + ')');
