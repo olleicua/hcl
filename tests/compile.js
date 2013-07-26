@@ -135,6 +135,8 @@ var tests = [
    55],
   [eval_test('((# factorial (n) (if (= n 1) 1 (* n (factorial (--1 n))))) 6)'),
    720],
+  [eval_test('(let (a 1 (b c) [ 2 3 ] ) [ a b c c b a ] )'),
+   [1, 2, 3, 3, 2, 1]],
   [eval_test('(replace "bar" "r" "z")'),
    'baz']
 ];

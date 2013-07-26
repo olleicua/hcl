@@ -2007,7 +2007,8 @@ _*_
 Takes 2 or more arguments.  There must be an even number of
 assignments.  The second of each pair of assignments is evaluated and
 assigned to the first in a new scope.  Then the statements are
-evaluated in that scope.  The result of the last statement is returned.
+evaluated in that scope.  The result of the last statement is
+returned.
 
 **Hot Cocoa Lisp**
 
@@ -2020,6 +2021,21 @@ evaluated in that scope.  The result of the last statement is returned.
 
 ```javascript
 (function(a, b) { return (a + b); }).call(this, 1, 2)
+```
+
+`let` can also do destructuring assignments:
+
+**Hot Cocoa Lisp**
+
+```lisp
+(let ((a b) foo)
+    (+ a b))
+```
+
+**JavaScript**
+
+```javascript
+(function(a, b) { return (a + b); }).call(this, foo[0], foo[1])
 ```
 
 * * *
