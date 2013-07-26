@@ -344,7 +344,7 @@ Underscore
 ----
 
 The `-u` flag makes Underscore.js 1.4.3 available at the top level.
-Each property of the `_` object added as a top level function. For
+Each property of the `_` object is added as a top level function. For
 example:
 
 ```lisp
@@ -410,7 +410,7 @@ String literals work just as they do in JavaScript.
 
 ### identifiers
 
-Identifiers in may contain any combination of letters digits or any of
+Identifiers in Hot Cocoa Lisp may contain any combination of letters digits or any of
 the following characters:
 
 `_`, `!`, `?`, `$`, `%`, `&`, `@`, `#`, `|`, `~`, `*`, `+`, `-`, `=`, `/`,
@@ -532,8 +532,8 @@ Cocoa Lisp.
 Functions marked with _*_ don't necessarily compile all
 of their arguments.
 
-Functions marked with _**_ can be accessed by their names within the
-language.  For example:
+Functions marked with _**_ can be accessed by their names in positions
+other than the beginning of an S-expression.  For example:
 
 ```lisp
 ;; this should be compiled with the -u flag to include map from underscore
@@ -752,6 +752,30 @@ statement evaluated.
 
 ```javascript
 (output_hyphen_requested() && (function() { console.log(things); return document.write(things); }).call(this))
+```
+
+* * *
+
+### unless
+
+     (unless condition statements...)
+
+Takes 2 or more arguments.  Check whether the first evaluates to true
+then evaluates the rest if the first wasn't true.  Returns the last
+statement evaluated.
+
+**Hot Cocoa Lisp**
+
+```lisp
+(unless (output-requested)
+    (console.log things)
+    (document.write things))
+```
+
+**JavaScript**
+
+```javascript
+(! output_hyphen_requested() && (function() { console.log(things); return document.write(things); }).call(this))
 ```
 
 * * *

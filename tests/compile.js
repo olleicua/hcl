@@ -16,7 +16,7 @@ var compile_test = function(source) {
 
 var eval_test = function(source) {
   return function() {
-    return eval('(' + compile(source).trim().replace(/;$/, '') + ')');
+    return eval('(' + compile(source).trim().replace(/;$/, '').replace(/var/, '') + ')');
   };
 }
 

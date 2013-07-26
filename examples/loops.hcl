@@ -1,3 +1,10 @@
+(var y 0)
+(times (x 7) (when (even? x) (++ y)))
+(console.log y)
+(var y 0)
+(times (x 7) (unless (even? x) (++ y) (++ y)))
+(console.log y)
+
 ;; traditional for loop
 (def print-all
      (# (args...)
