@@ -30,3 +30,13 @@
 (for (x [ 2 4 6 ] )
      (for (y [ 3 6 9 ] )
           (console.log (* x y))))
+
+;; find the firs fibonacci number below n
+(def first-fib
+     (# (n)
+        (let (a 1 b 1)
+          (until (> b n)
+                 (set (a b) [ b (+ a b) ] ))
+          b)))
+
+(console.log (map (range 10 101 10) first-fib))

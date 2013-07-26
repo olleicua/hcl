@@ -811,7 +811,7 @@ first result whose condition returns true and `undefined` if none do.
      (while condition statements...)
 
 Takes 2 or more arguments.  Evaluates the arguments after the first
-repeatedly as long as the first evaluates to true.  Returns `undefined`.
+repeatedly as long as the first evaluates to a truthy value.  Returns `undefined`.
 
 **Hot Cocoa Lisp**
 
@@ -827,6 +827,15 @@ repeatedly as long as the first evaluates to true.  Returns `undefined`.
 var i = 10;
 (function() {while (i--) { alert(i); }}).call(this);
 ```
+
+* * *
+
+### until
+
+     (until condition statements...)
+
+Takes 2 or more arguments.  Evaluates the arguments after the first
+repeatedly as long as the first evaluates to a falsey value.  Returns `undefined`.
 
 * * *
 
@@ -1869,6 +1878,13 @@ var foo = 1;
 
 Takes 2-3 arguments.
 
+If the first argument is a list then a destructuring bind is
+performed:
+
+    (set (a b) (b a))
+
+swaps the values in `b` and `a`
+
 If 2 arguments are given:
 
     (set l_value r_value)
@@ -1906,13 +1922,13 @@ Takes 2-3 arguments.
 
 If 2 arguments are given:
 
-    (set l_value summand)
+    (set+ l_value summand)
 
 Adds the summand to the l_value and returns the new value.
 
 If 3 arguments are given:
 
-    (set object key summand)
+    (set+ object key summand)
 
 Adds the summand to the value associated with the specified key in the
 object and returns the new value.
