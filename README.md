@@ -1912,6 +1912,26 @@ returns the value.
 (bar[baz] = 12)
 ```
 
+If the first argument to `set` is a list then the result is a
+destructuring bind:
+
+**Hot Cocoa Lisp**
+
+```lisp
+(var obj {})
+(def foo (# () ["foo" "bar"]))
+(set (obj.foo obj.bar) (foo))
+;; obj is now {foo "foo" bar "bar"}
+```
+
+**JavaScript**
+
+```javascript
+var obj = {};
+var foo = function() { return ["foo", "bar"]; };
+(function(_array_){ obj.foo = _array_[0]; obj.bar = _array_[1]; return _array_; }).call(this, foo());
+```
+
 * * *
 
 ### set+
