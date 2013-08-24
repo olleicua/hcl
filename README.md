@@ -1870,6 +1870,10 @@ with the specified name.  Assign the value to it if one is specified.
 var foo = 1;
 ```
 
+`def` will give a compile error if the name is a function built into
+Hot Cocoa Lisp or if the `-u` flag is specified and the name is an
+underscore method.
+
 * * *
 
 ### set
