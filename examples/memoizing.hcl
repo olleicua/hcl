@@ -6,7 +6,7 @@
              (choose (--1 m) (--1 n))))))
 
 ;; memoize
-(def memoize
+(def my-memoize
      (# (func)
         (let (memo {})
           (# (args...)
@@ -16,10 +16,10 @@
 
 ;; choose w/ memoize
 (def choose-memo
-     (memoize (# (m n)
-                 (if (or (= 0 n) (= m n)) 1
-                   (+ (choose-memo (--1 m) n)
-                      (choose-memo (--1 m) (--1 n)))))))
+     (my-memoize (# (m n)
+                    (if (or (= 0 n) (= m n)) 1
+                      (+ (choose-memo (--1 m) n)
+                         (choose-memo (--1 m) (--1 n)))))))
      
 (console.log (choose 5 2))
 (console.log (choose 20 10))

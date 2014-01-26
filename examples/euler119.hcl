@@ -1,9 +1,9 @@
 (def digit-sum
      (# (n)
-        (def result 0)
+        (def res 0)
         (for (digit (string n))
-             (set+ result (number digit)))
-        result))
+             (set+ res (number digit)))
+        res))
 
 (def preliminary-check?
      (# (sum n)

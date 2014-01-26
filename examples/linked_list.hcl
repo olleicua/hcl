@@ -1,10 +1,10 @@
 (def reverse-list (# (l)
   (if (nil? l.next) l
     (let (next l.next
-          result (reverse-list l.next))
+          res (reverse-list l.next))
       (set l.next.next l)
       (set l.next null)
-      result))))
+      res))))
 
 (def linked-list { v 1 next { v 2 next { v 3 } } })
 
