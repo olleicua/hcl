@@ -54,6 +54,9 @@ if (args._[0]) {
     }
   }
   
+  // load fraction support
+  var frac = require('../lib/reduceFractions.js');
+  
   // start the REPL
   repl.start({
     prompt: 'hcl> ',
