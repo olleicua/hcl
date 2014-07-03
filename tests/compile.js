@@ -114,9 +114,9 @@ var tests = [
   [eval_test('(bit-xor 5 15)'),
    10],
   [eval_test('(cat (type []) (type {}) (type (# () (nop))) (type "") (type 7))'),
-   'arrayobjectfunctionstringnumber'],
+   'ArrayObjectFunctionStringNumber'],
   [eval_test('(cat (type (re "foo")) (type null) (type undefined) (type NaN))'),
-   'regexnullundefinednan'],
+   'RegExpNullUndefinedNaN'],
   [eval_test('(and (nil? null) (boolean? true) (number? 7.5) (string? "foo"))'),
    true],
   [eval_test('(and (list? []) (object? {}) (function? (# () (nop))) (empty? ""))'),
@@ -138,7 +138,23 @@ var tests = [
   [eval_test('(let (a 1 (b c) [ 2 3 ] ) [ a b c c b a ] )'),
    [1, 2, 3, 3, 2, 1]],
   [eval_test('(replace "bar" "r" "z")'),
-   'baz']
+   'baz'],
+  [eval_test('1/2'),
+   0.5],
+  [eval_test('2/1'),
+   2],
+  [eval_test('0/2'),
+   0],
+  [eval_test('(type 0/0)'),
+   "NaN"],
+  [eval_test('(type -0/0)'),
+   "NaN"],
+  [eval_test('3/0'),
+   2/0],
+  [eval_test('-4/0'),
+   -1/0],
+  [eval_test('0/2'),
+   0]
 ];
 
 require('hot-cocoa').test(tests);
