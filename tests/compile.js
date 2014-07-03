@@ -154,7 +154,14 @@ var tests = [
   [eval_test('-4/0'),
    -1/0],
   [eval_test('0/2'),
-   0]
+   0],
+  [compile_test('00'),
+   "unrecognizable token at 1:0"],
+  [compile_test('01/1'),
+   "unrecognizable token at 1:0"]
+  // TODO: make this test give a more correct error message
+  //[compile_test('1/09'),
+  // "unrecognizable token at 1:0"]
 ];
 
 require('hot-cocoa').test(tests);
