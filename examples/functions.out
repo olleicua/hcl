@@ -2,7 +2,7 @@
 (1) (2) (3)
 (8) (7)
 foobarbaz
-number,null,string,array,object,nan,regex,undefined,function
+Number,Null,String,Array,Object,NaN,RegExp,Undefined,Function
 1,foo,1,2,3,[object Object],NaN,/foo/
 x x x x x
 0
