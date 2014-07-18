@@ -68,6 +68,12 @@ FreeCell example
 I've created a FreeCell game as an example of a small program in Hot
 Cocoa Lisp.  It can be found at https://github.com/olleicua/FreeCell
 
+Mandelbrot example
+----
+
+I've also created a mandelbrot set explorer using the HTML5 canvas in Hot
+Cocoa Lisp.  It can be found at https://github.com/olleicua/hcl-canvas-mandelbrot
+
 Arrays, Objects, and Variables
 ----
 
