@@ -1,5 +1,4 @@
-(def x 1)
-(def y 5)
+(def x 1 y 5)
 
 (def foo
      (# (y)
@@ -23,7 +22,7 @@
 (console.log (bar "no") (bar "yes"))
 
 (console.log ((# (a b c)
-                 (var x a) (var y b) (var z c)
+                 (var x a y b z c)
                  (+ x y z))
               9 8 7))
 
