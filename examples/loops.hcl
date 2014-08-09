@@ -31,7 +31,7 @@
      (for (y [ 3 6 9 ] )
           (console.log (* x y))))
 
-;; find the firs fibonacci number below n
+;; find the first fibonacci number below n
 (def first-fib
      (# (n)
         (let (a 1 b 1)
@@ -40,3 +40,8 @@
           b)))
 
 (console.log (map (range 10 101 10) first-fib))
+
+;; loop with index
+
+(def the-list ["foo" "bar" "baz"])
+(for ((index word) the-list) (console.log index word))
