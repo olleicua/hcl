@@ -158,7 +158,7 @@ var tests = [
   [compile_test('@'),
    "this;"],
   [compile_test('@foo'),
-   "this.foo;"],
+   "this['foo'];"],
   [compile_test('00'),
    "unrecognizable token at 1:0"],
   [compile_test('01/1'),
