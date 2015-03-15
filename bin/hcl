@@ -66,7 +66,7 @@ if (args._[0]) {
       } else {
         try {
           var ast = hcl.analyze(hcl.parse(hcl.scan(cmd.toString())));
-          var js = compile(ast[0][0], undefined, undefined, {
+          var js = compile(ast[0], undefined, undefined, {
             repl_mode: true,
             omit_annotations: true,
             add_to_outer_scope: function(name, value) {
@@ -77,7 +77,7 @@ if (args._[0]) {
             },
             add_to_scope: function(name, value) {
               if (args.debug && value) {
-                console.log('js (', name, '):', value);
+                 console.log('js (', name, '):', value);
               }
               global[name] = eval('(' + value + ')');
             }
