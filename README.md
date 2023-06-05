@@ -1,3 +1,5 @@
+(note: sadly hcl does not work with modern nodejs)
+
 Hot Cocoa Lisp
 ====
 
